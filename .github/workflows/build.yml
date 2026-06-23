@@ -1,0 +1,131 @@
+name: Build IWFM
+
+# Builds the IWFM executables (Simulation, PreProcessor, Budget, ZBudget) on
+# Linux, macOS, and Windows with gfortran. heclib (HEC-DSS) and zlib are built
+# from source and linked statically; HDF5 comes from the platform toolchain.
+#
+# NOTE: the CMake build lives on the `gfortran-build` branch (not `main`, which
+# is a clean upstream mirror with no CMake), so CI runs there.
+
+on:
+  push:
+    branches: [gfortran-build]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Linux + macOS: conda/micromamba toolchain (gfortran + system HDF5).
+  # This mirrors the locally-verified macOS build exactly.
+  # ---------------------------------------------------------------------------
+  unix:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    defaults:
+      run:
+        shell: bash -el {0}   # login shell so the micromamba env is active
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up build environment (micromamba)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" -DHDF5_ROOT="$CONDA_PREFIX" \
+            -DIWFM_USE_SYSTEM_HDF5=ON \
+            -DIWFM_USE_SYSTEM_ZLIB=OFF \
+            -DIWFM_USE_SYSTEM_HECLIB=OFF \
+            -DIWFM_BUILD_DLL=OFF \
+            -DIWFM_BUILD_PARALLEL=OFF \
+            -DIWFM_BUILD_COARRAY=OFF \
+            -DIWFM_BUILD_TESTS=OFF
+
+      - name: Build
+        run: cmake --build build -j
+
+      - name: Verify executables
+        run: |
+          ls -lh Bin/
+          test -x Bin/Simulation && test -x Bin/PreProcessor \
+            && test -x Bin/Budget && test -x Bin/ZBudget
+          # heclib must be statically linked (not a dynamic dependency)
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            ! otool -L Bin/Simulation | grep -qi heclib
+          else
+            ! ldd Bin/Simulation | grep -qi heclib
+          fi
+
+      - name: Upload binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iwfm-${{ matrix.os }}
+          path: Bin/
+          if-no-files-found: warn
+
+  # ---------------------------------------------------------------------------
+  # Windows: MSYS2/MinGW gfortran toolchain + its HDF5 package.
+  # Best-effort: the gfortran source is standard-conforming so it should compile
+  # the same as on Unix, but the heclib C build + MinGW link is less battle-tested
+  # than the Unix path and may need iteration once real runner logs are available.
+  # ---------------------------------------------------------------------------
+  windows:
+    name: windows-latest
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSYS2 (MinGW64 gfortran)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            git
+            mingw-w64-x86_64-gcc-fortran
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-hdf5
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DIWFM_USE_SYSTEM_HDF5=ON \
+            -DIWFM_USE_SYSTEM_ZLIB=OFF \
+            -DIWFM_USE_SYSTEM_HECLIB=OFF \
+            -DIWFM_BUILD_DLL=OFF \
+            -DIWFM_BUILD_PARALLEL=OFF \
+            -DIWFM_BUILD_COARRAY=OFF \
+            -DIWFM_BUILD_TESTS=OFF
+
+      - name: Build
+        run: cmake --build build -j
+
+      - name: Verify executables
+        run: ls -lh Bin/
+
+      - name: Upload binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iwfm-windows-latest
+          path: Bin/
+          if-no-files-found: warn
