@@ -71,7 +71,7 @@ MODULE Util_RootZone_v40
                                   f_iNRootZoneBudColumns                                = 46  , & 
                                   f_iNAgLWUseBudColumns                                 = 10  , &
                                   f_iNAgRootZoneBudColumns                              = 17  
-   CHARACTER(LEN=32),PARAMETER :: f_cLWUseBudgetColumnTitles(f_iNLWUseBudColumns)       = ['Ag. Area'                           , &   
+   CHARACTER(LEN=32),PARAMETER :: f_cLWUseBudgetColumnTitles(f_iNLWUseBudColumns)       = [CHARACTER(LEN=32) :: 'Ag. Area'                           , &   
                                                                                            'Potential CUAW'                     , &   
                                                                                            'Ag. Supply Requirement (+)'         , &   
                                                                                            'Ag. Pumping (-)'                    , &   
@@ -87,7 +87,7 @@ MODULE Util_RootZone_v40
                                                                                            'Urban Deliveries (-)'               , &   
                                                                                            'Urban Inflow as Surface Runoff (-)' , &   
                                                                                            'Urban Shortage (=)'                 ]     
-   CHARACTER(LEN=53),PARAMETER :: f_cRootZoneBudgetColumnTitles(f_iNRootZoneBudColumns) = ['Ag. Area'                                               , &     
+   CHARACTER(LEN=53),PARAMETER :: f_cRootZoneBudgetColumnTitles(f_iNRootZoneBudColumns) = [CHARACTER(LEN=53) :: 'Ag. Area'                                               , &     
                                                                                            'Ag. Potential ET'                                       , &     
                                                                                            'Ag. Precipitation'                                      , &     
                                                                                            'Ag. Runoff'                                             , &     
@@ -163,7 +163,7 @@ CONTAINS
                               f_iNColumnHeaderLines = 4
     INTEGER                :: indxCol,indxLocation,iCount
     CHARACTER              :: UnitT*10,Text*17,Text1*13
-    CHARACTER(LEN=6)       :: CParts(f_iNLWUseBudColumns) = ['AREA'   , &
+    CHARACTER(LEN=6)       :: CParts(f_iNLWUseBudColumns) = [CHARACTER(LEN=6) :: 'AREA'   , &
                                                              'VOLUME' , &
                                                              'VOLUME' , &
                                                              'VOLUME' , &
@@ -179,7 +179,7 @@ CONTAINS
                                                              'VOLUME' , &
                                                              'VOLUME' , &
                                                              'VOLUME' ]
-    CHARACTER(LEN=13)      :: FParts(f_iNLWUseBudColumns) = ['AG_AREA'         ,&
+    CHARACTER(LEN=13)      :: FParts(f_iNLWUseBudColumns) = [CHARACTER(LEN=13) :: 'AG_AREA'         ,&
                                                              'AG_POTNL_CUAW'   ,&
                                                              'AG_SUP_REQ'      ,&    
                                                              'AG_PUMPING'      ,&
@@ -250,7 +250,8 @@ CONTAINS
     OutputData%cLocationNames = cRegionNames  
         
     !Locations
-    ALLOCATE (OutputData%Locations(1)                                                             , &
+    ALLOCATE (OutputData%Locations(1))
+    ALLOCATE ( &
               OutputData%Locations(1)%cFullColumnHeaders(f_iNLWUseBudColumns+1)                   , &
               OutputData%Locations(1)%iDataColumnTypes(f_iNLWUseBudColumns)                       , &
               OutputData%Locations(1)%iColWidth(f_iNLWUseBudColumns+1)                            , &
@@ -283,9 +284,9 @@ CONTAINS
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
         Text                = ArrangeText(TRIM(UnitT),17)
         Text1               = '('//TRIM(f_cAreaUnitMarker)//')'
-        pColumnHeaders(:,1) = ['                 ','            ','    Potential ',' Agricultural','             ','             ','  Inflow as  ','             ','             ','             ','      ET     ','            ','     Urban    ','             ','             ','  Inflow as  ','             ']
-        pColumnHeaders(:,2) = ['      Time       ','        Area','      CUAW    ','    Supply   ','      Pumping','  Deliveries ',' Srfc. Runoff','     Shortage','             ','   Effective ','  from Other ','        Area','     Supply   ','      Pumping','  Deliveries ',' Srfc. Runoff','     Shortage']
-        pColumnHeaders(:,3) = [               Text,         Text1,'              ','  Requirement','        (-)  ','      (-)    ','     (-)     ','       (=)   ','       ETAW  ','    Precip   ','   Sources   ',         Text1,'   Requirement','        (-)  ','      (-)    ','     (-)     ','       (=)   ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','            ','    Potential ',' Agricultural','             ','             ','  Inflow as  ','             ','             ','             ','      ET     ','            ','     Urban    ','             ','             ','  Inflow as  ','             ']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','        Area','      CUAW    ','    Supply   ','      Pumping','  Deliveries ',' Srfc. Runoff','     Shortage','             ','   Effective ','  from Other ','        Area','     Supply   ','      Pumping','  Deliveries ',' Srfc. Runoff','     Shortage']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::                Text,         Text1,'              ','  Requirement','        (-)  ','      (-)    ','     (-)     ','       (=)   ','       ETAW  ','    Precip   ','   Sources   ',         Text1,'   Requirement','        (-)  ','      (-)    ','     (-)     ','       (=)   ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,A12,A14,8A13,3X,A12,A14,4A13)'
         pFormatSpecs(2)     = '(A17,A12,A14,8A13,3X,A12,A14,4A13)'
@@ -341,7 +342,7 @@ CONTAINS
                               f_iNColumnHeaderLines = 4
     INTEGER                :: indxCol,indxLocation,iCount
     CHARACTER              :: UnitT*10,Text*17,Text1*13
-    CHARACTER(LEN=6)       :: CParts(f_iNAgLWUseBudColumns) = ['AREA'   , &
+    CHARACTER(LEN=6)       :: CParts(f_iNAgLWUseBudColumns) = [CHARACTER(LEN=6) :: 'AREA'   , &
                                                                'VOLUME' , &
                                                                'VOLUME' , &
                                                                'VOLUME' , &
@@ -351,7 +352,7 @@ CONTAINS
                                                                'VOLUME' , &
                                                                'VOLUME' , &
                                                                'VOLUME' ]
-    CHARACTER(LEN=10)      :: FParts(f_iNAgLWUseBudColumns) = ['AREA'         ,&
+    CHARACTER(LEN=10)      :: FParts(f_iNAgLWUseBudColumns) = [CHARACTER(LEN=10) :: 'AREA'         ,&
                                                                'POTNL_CUAW'   ,&
                                                                'SUP_REQ'      ,&    
                                                                'PUMPING'      ,&
@@ -414,7 +415,8 @@ CONTAINS
     OutputData%cLocationNames = cRegionNames  
         
     !Locations
-    ALLOCATE (OutputData%Locations(1)                                                               , &
+    ALLOCATE (OutputData%Locations(1))
+    ALLOCATE ( &
               OutputData%Locations(1)%cFullColumnHeaders(f_iNAgLWUseBudColumns+1)                   , &
               OutputData%Locations(1)%iDataColumnTypes(f_iNAgLWUseBudColumns)                       , &
               OutputData%Locations(1)%iColWidth(f_iNAgLWUseBudColumns+1)                            , &
@@ -422,7 +424,7 @@ CONTAINS
               OutputData%Locations(1)%cColumnHeadersFormatSpec(f_iNColumnHeaderLines)               )
     ASSOCIATE (pLocation => OutputData%Locations(1))
       pLocation%NDataColumns       = f_iNAgLWUseBudColumns
-      pLocation%cFullColumnHeaders = ['Time'                           , &
+      pLocation%cFullColumnHeaders = [CHARACTER(LEN=100) :: 'Time'                           , &
                                       'Area ('//f_cAreaUnitMarker//')' , &
                                       'Potential CUAW'                 , &
                                       'Supply Requirement (+)'         , &
@@ -448,9 +450,9 @@ CONTAINS
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
         Text                = ArrangeText(TRIM(UnitT),17)
         Text1               = '('//TRIM(f_cAreaUnitMarker)//')'
-        pColumnHeaders(:,1) = ['                 ','            ','    Potential ','    Supply   ','             ','             ','  Inflow as  ','             ','             ','             ','      ET     ']
-        pColumnHeaders(:,2) = ['      Time       ','        Area','      CUAW    ','  Requirement','      Pumping',' Deliveries  ',' Srfc. Runoff','     Shortage','             ','   Effective ','  from Other ']
-        pColumnHeaders(:,3) = [               Text,         Text1,'              ','      (+)    ','        (-)  ','     (-)     ','     (-)     ','       (=)   ','       ETAW  ','    Precip   ','    Sources  ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','            ','    Potential ','    Supply   ','             ','             ','  Inflow as  ','             ','             ','             ','      ET     ']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','        Area','      CUAW    ','  Requirement','      Pumping',' Deliveries  ',' Srfc. Runoff','     Shortage','             ','   Effective ','  from Other ']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::                Text,         Text1,'              ','      (+)    ','        (-)  ','     (-)     ','     (-)     ','       (=)   ','       ETAW  ','    Precip   ','    Sources  ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,A12,A14,8A13)'
         pFormatSpecs(2)     = '(A17,A12,A14,8A13)'
@@ -507,7 +509,7 @@ CONTAINS
                               f_iNColumnHeaderLines = 4
     INTEGER                :: indxCol,indxLocation,iCount
     CHARACTER              :: UnitT*10,Text*17,Text1*13
-    CHARACTER(LEN=6)       :: CParts(f_iNRootZoneBudColumns) = ['AREA'   , &
+    CHARACTER(LEN=6)       :: CParts(f_iNRootZoneBudColumns) = [CHARACTER(LEN=6) :: 'AREA'   , &
                                                                 'VOLUME' , &
                                                                 'VOLUME' , &
                                                                 'VOLUME' , &
@@ -553,7 +555,7 @@ CONTAINS
                                                                 'VOLUME' , &
                                                                 'VOLUME' , &
                                                                 'VOLUME' ]
-    CHARACTER(LEN=15)      :: FParts(f_iNRootZoneBudColumns) = ['AG_AREA'           ,&
+    CHARACTER(LEN=15)      :: FParts(f_iNRootZoneBudColumns) = [CHARACTER(LEN=15) :: 'AG_AREA'           ,&
                                                                 'AG_POT_ET'         ,&   
                                                                 'AG_PRECIP'         ,&   
                                                                 'AG_RUNOFF'         ,&   
@@ -654,7 +656,8 @@ CONTAINS
     OutputData%cLocationNames = cRegionNames  
         
     !Locations
-    ALLOCATE (OutputData%Locations(1)                                                                , &
+    ALLOCATE (OutputData%Locations(1))
+    ALLOCATE ( &
               OutputData%Locations(1)%cFullColumnHeaders(f_iNRootZoneBudColumns+1)                   , &
               OutputData%Locations(1)%iDataColumnTypes(f_iNRootZoneBudColumns)                       , &
               OutputData%Locations(1)%iColWidth(f_iNRootZoneBudColumns+1)                            , &
@@ -662,7 +665,7 @@ CONTAINS
               OutputData%Locations(1)%cColumnHeadersFormatSpec(f_iNColumnHeaderLines)                )
     ASSOCIATE (pLocation => OutputData%Locations(1))
       pLocation%NDataColumns       = f_iNRootZoneBudColumns
-      pLocation%cFullColumnHeaders =  ['Time'                                                   , &
+      pLocation%cFullColumnHeaders =  [CHARACTER(LEN=100) :: 'Time'                                                   , &
                                        'Ag. Area ('//f_cAreaUnitMarker//')'                     , &
                                        'Ag. Potential ET'                                       , &
                                        'Ag. Precipitation'                                      , &
@@ -760,9 +763,9 @@ CONTAINS
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
         Text                = ArrangeText(TRIM(UnitT),17)
         Text1               = '('//TRIM(f_cAreaUnitMarker)//')'
-        pColumnHeaders(:,1) = ['                 ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','          Pond ','         Actual','               ','        Ending ','               ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','         Actual','               ','        Ending ','               ','              ','               ','                ','   Inflow as   ','               ','     Beginning ',' Net Gain from ','               ','        Other  ','         Actual','               ','        Ending ','               ']
-        pColumnHeaders(:,2) = ['      Time       ','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','          Drain','           ET  ','    Percolation','        Storage','    Discrepancy','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','           ET  ','    Percolation','        Storage','    Discrepancy','          Area','      Potential','  Precipitation ',' Surface Runoff','        Runoff ','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','           ET  ','    Percolation','        Storage','    Discrepancy']
-        pColumnHeaders(:,3) = [               Text,           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','           (-) ','       (-)     ','          (-)  ','        (=)    ',           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','       (-)     ','          (-)  ','        (=)    ',           Text1,'         ET    ','                ','               ','               ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','       (-)     ','          (-)  ','        (=)    ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','          Pond ','         Actual','               ','        Ending ','               ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','         Actual','               ','        Ending ','               ','              ','               ','                ','   Inflow as   ','               ','     Beginning ',' Net Gain from ','               ','        Other  ','         Actual','               ','        Ending ','               ']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','          Drain','           ET  ','    Percolation','        Storage','    Discrepancy','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','           ET  ','    Percolation','        Storage','    Discrepancy','          Area','      Potential','  Precipitation ',' Surface Runoff','        Runoff ','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','           ET  ','    Percolation','        Storage','    Discrepancy']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::                Text,           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','           (-) ','       (-)     ','          (-)  ','        (=)    ',           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','       (-)     ','          (-)  ','        (=)    ',           Text1,'         ET    ','                ','               ','               ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','       (-)     ','          (-)  ','        (=)    ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,A14,A15,A16,14A15,3X,A14,A15,A16,13A15,3X,A14,A15,A16,10A15)'
         pFormatSpecs(2)     = '(A17,A14,A15,A16,14A15,3X,A14,A15,A16,13A15,3X,A14,A15,A16,10A15)'
@@ -821,7 +824,7 @@ CONTAINS
                               f_iNColumnHeaderLines = 4
     INTEGER                :: indxCol,indxLocation,iCount
     CHARACTER              :: UnitT*10,Text*17,Text1*13
-    CHARACTER(LEN=6)       :: CParts(f_iNAgRootZoneBudColumns) = ['AREA'   , &
+    CHARACTER(LEN=6)       :: CParts(f_iNAgRootZoneBudColumns) = [CHARACTER(LEN=6) :: 'AREA'   , &
                                                                   'VOLUME' , &
                                                                   'VOLUME' , &
                                                                   'VOLUME' , &
@@ -838,7 +841,7 @@ CONTAINS
                                                                   'VOLUME' , &
                                                                   'VOLUME' , &
                                                                   'VOLUME' ]
-    CHARACTER(LEN=11)      :: FParts(f_iNAgRootZoneBudColumns) = ['AREA'           ,&
+    CHARACTER(LEN=11)      :: FParts(f_iNAgRootZoneBudColumns) = [CHARACTER(LEN=11) :: 'AREA'           ,&
                                                                   'POT_ET'         ,&   
                                                                   'PRECIP'         ,&   
                                                                   'RUNOFF'         ,&   
@@ -908,7 +911,8 @@ CONTAINS
     OutputData%cLocationNames = cRegionNames  
         
     !Locations
-    ALLOCATE (OutputData%Locations(1)                                                                  , &
+    ALLOCATE (OutputData%Locations(1))
+    ALLOCATE ( &
               OutputData%Locations(1)%cFullColumnHeaders(f_iNAgRootZoneBudColumns+1)                   , &
               OutputData%Locations(1)%iDataColumnTypes(f_iNAgRootZoneBudColumns)                       , &
               OutputData%Locations(1)%iColWidth(f_iNAgRootZoneBudColumns+1)                            , &
@@ -916,7 +920,7 @@ CONTAINS
               OutputData%Locations(1)%cColumnHeadersFormatSpec(f_iNColumnHeaderLines)                  )
     ASSOCIATE (pLocation => OutputData%Locations(1))
       pLocation%NDataColumns       = f_iNAgRootZoneBudColumns
-      pLocation%cFullColumnHeaders =  ['Time'                                               , &
+      pLocation%cFullColumnHeaders =  [CHARACTER(LEN=100) :: 'Time'                                               , &
                                        'Area ('//f_cAreaUnitMarker//')'                     , &
                                        'Potential ET'                                       , &
                                        'Precipitation'                                      , &
@@ -956,9 +960,9 @@ CONTAINS
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
         Text                = ArrangeText(TRIM(UnitT),17)
         Text1               = '('//TRIM(f_cAreaUnitMarker)//')'
-        pColumnHeaders(:,1) = ['                 ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','          Pond ','         Actual','               ','        Ending ','               ']
-        pColumnHeaders(:,2) = ['      Time       ','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','          Drain','           ET  ','    Percolation','        Storage','    Discrepancy']
-        pColumnHeaders(:,3) = [               Text,           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','           (-) ','       (-)     ','          (-)  ','        (=)    ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','              ','               ','                ','               ','       Prime   ','   Inflow as   ','         Reused','          Net  ','     Beginning ',' Net Gain from ','               ','        Other  ','          Pond ','         Actual','               ','        Ending ','               ']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','          Area','      Potential','   Precipitation','         Runoff','      Applied  ',' Surface Runoff','         Water ','         Return','      Storage  ',' Land Expansion','   Infiltration','        Inflow ','          Drain','           ET  ','    Percolation','        Storage','    Discrepancy']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::                Text,           Text1,'         ET    ','                ','               ','       Water   ','               ','               ','          Flow ','        (+)    ','       (+)     ','        (+)    ','          (+)  ','           (-) ','           (-) ','       (-)     ','          (-)  ','        (=)    ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,A14,A15,A16,14A15)'
         pFormatSpecs(2)     = '(A17,A14,A15,A16,14A15)'

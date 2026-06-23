@@ -136,7 +136,7 @@ MODULE RootZone_v411
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNLWUseZBudColumns                                    = 39  , &
                                  f_iNRootZoneZBudColumns                                 = 85   
-  CHARACTER(LEN=43),PARAMETER :: f_cLWUseZBudgetColumnTitles(f_iNLWUseZBudColumns)       = ['Non-ponded Ag. Area'                           , &
+  CHARACTER(LEN=43),PARAMETER :: f_cLWUseZBudgetColumnTitles(f_iNLWUseZBudColumns)       = [CHARACTER(LEN=43) :: 'Non-ponded Ag. Area'                           , &
                                                                                             'Non-ponded Potential CUAW'                     , &
                                                                                             'Non-ponded Ag. Supply Requirement (+)'         , &
                                                                                             'Non-ponded Ag. Pumping (-)'                    , &
@@ -175,7 +175,7 @@ MODULE RootZone_v411
                                                                                             'Urban Deliveries (-)'                          , &
                                                                                             'Urban Inflow as Surface Runoff (-)'            , &
                                                                                             'Urban Shortage (=)'                            ]
-  CHARACTER(LEN=53),PARAMETER :: f_cRootZoneZBudgetColumnTitles(f_iNRootZoneZBudColumns) = ['Non-ponded Ag. Area'                                    , &
+  CHARACTER(LEN=53),PARAMETER :: f_cRootZoneZBudgetColumnTitles(f_iNRootZoneZBudColumns) = [CHARACTER(LEN=53) :: 'Non-ponded Ag. Area'                                    , &
                                                                                             'Non-ponded Ag. Potential ET'                            , &
                                                                                             'Non-ponded Ag. Precipitation'                           , &
                                                                                             'Non-ponded Ag. Runoff'                                  , &
@@ -1168,7 +1168,7 @@ CONTAINS
     Header%ASCIIOutput%cNumberFormat    = '(A16,17(2X,F13.1),3X,18(2X,F13.1),3X,18(2X,F13.1),3X,17(2X,F13.1),3X,15(2X,F13.1))'
     
     !DSS pathanmes
-    Header%cDSSFParts = ['NP_AG_AREA'               ,&
+    Header%cDSSFParts = [CHARACTER(LEN=19) :: 'NP_AG_AREA'               ,&
                          'NP_AG_POT_ET'             ,&
                          'NP_AG_PRECIP'             ,&   
                          'NP_AG_RUNOFF'             ,&   
@@ -1494,7 +1494,7 @@ CONTAINS
     Header%ASCIIOutput%cNumberFormat    = '(A16,11(2X,F11.1),3X,11(2X,F11.1),3X,11(2X,F11.1),3X,6(2X,F11.1))'
     
     !DSS output pathnames
-    Header%cDSSFParts = ['NP_AG_AREA'           ,&
+    Header%cDSSFParts = [CHARACTER(LEN=17) :: 'NP_AG_AREA'           ,&
                          'NP_AG_POTNL_CUAW'     ,&
                          'NP_AG_SUP_REQ'        ,&    
                          'NP_AG_PUMPING'        ,&
@@ -1771,7 +1771,7 @@ CONTAINS
     !Land and water use z-budget
     IF (iZBudgetType .EQ. f_iZBudgetType_LWU) THEN
         ALLOCATE (iColList(5) , iDataUnitTypes(5) , cFlowNames(5) , rValues(6,iNTimeSteps))
-        cFlowNames = ['Supply Requirement' , 'Pumping' , 'Deliveries' , 'Inflow as Surface Runoff' , 'Shortage']
+        cFlowNames = [CHARACTER(LEN=24) :: 'Supply Requirement' , 'Pumping' , 'Deliveries' , 'Inflow as Surface Runoff' , 'Shortage']
         SELECT CASE (iLUType)
             CASE (f_iLandUse_NonPondedAg)
                 iColList = [(indx,indx=3,7)]
@@ -1815,7 +1815,7 @@ CONTAINS
         SELECT CASE (iLUType)
             CASE (f_iLandUse_NonPondedAg)
                 ALLOCATE (iColList(8) , iDataUnitTypes(8) , cFlowNames(7) , rValues(9,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=9,16)]
                     
                 !Read data for the interval
@@ -1836,7 +1836,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Rice)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=26,34)]
                 
                 !Read data for the interval
@@ -1858,7 +1858,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Refuge)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=44,52)]
                 
                 !Read data for the interval
@@ -1880,7 +1880,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Urb)
                 ALLOCATE (iColList(8) , iDataUnitTypes(8) , cFlowNames(7) , rValues(9,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=62,69)]
                 
                 !Read data for the interval
@@ -1901,7 +1901,7 @@ CONTAINS
                 
             CASE (f_iLandUse_NVRV)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Stream Inflow for ET' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Stream Inflow for ET' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=76,84)]
                 
                 !Read data for the interval
@@ -2012,7 +2012,7 @@ CONTAINS
     !Land and water use z-budget
     IF (iZBudgetType .EQ. f_iZBudgetType_LWU) THEN
         ALLOCATE (iColList(5) , iDataUnitTypes(5) , cFlowNames(5) , rValues(6,iNTimeSteps))
-        cFlowNames = ['Supply Requirement' , 'Pumping' , 'Deliveries' , 'Inflow as Surface Runoff' , 'Shortage']
+        cFlowNames = [CHARACTER(LEN=24) :: 'Supply Requirement' , 'Pumping' , 'Deliveries' , 'Inflow as Surface Runoff' , 'Shortage']
         SELECT CASE (iLUType)
             CASE (f_iLandUse_NonPondedAg)
                 iColList = [(indx,indx=3,7)]
@@ -2056,7 +2056,7 @@ CONTAINS
         SELECT CASE (iLUType)
             CASE (f_iLandUse_NonPondedAg)
                 ALLOCATE (iColList(8) , iDataUnitTypes(8) , cFlowNames(7) , rValues(9,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=9,16)]
                     
                 !Read data for the interval
@@ -2077,7 +2077,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Rice)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=26,34)]
                 
                 !Read data for the interval
@@ -2099,7 +2099,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Refuge)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Pond Drain' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=44,52)]
                 
                 !Read data for the interval
@@ -2121,7 +2121,7 @@ CONTAINS
                 
             CASE (f_iLandUse_Urb)
                 ALLOCATE (iColList(8) , iDataUnitTypes(8) , cFlowNames(7) , rValues(9,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=62,69)]
                 
                 !Read data for the interval
@@ -2142,7 +2142,7 @@ CONTAINS
                 
             CASE (f_iLandUse_NVRV)
                 ALLOCATE (iColList(9) , iDataUnitTypes(9) , cFlowNames(8) , rValues(10,iNTimeSteps))
-                cFlowNames = ['Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Stream Inflow for ET' , 'ET' , 'Percolation']
+                cFlowNames = [CHARACTER(LEN=24) :: 'Change in Storage' , 'Gain from Land Expansion' , 'Infiltration' , 'GW Inflow' , 'Other Inflow' , 'Stream Inflow for ET' , 'ET' , 'Percolation']
                 iColList   = [(indx,indx=76,84)]
                 
                 !Read data for the interval

@@ -162,7 +162,7 @@ CONTAINS
     
     !Local variables
     TYPE(ModelType),TARGET   :: DummyModel
-    CHARACTER                :: cVer_F*iLen
+    CHARACTER                :: cVer_F*(iLen)
     CHARACTER(:),ALLOCATABLE :: cVersion
     
     !Initialize
@@ -189,7 +189,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)         :: iStat
     
     !Local variables
-    CHARACTER :: cVer_F*iLen
+    CHARACTER :: cVer_F*(iLen)
     
     iStat = 0
     
@@ -972,7 +972,7 @@ CONTAINS
     !Local variables
     INTEGER   :: DELTAT_InMinutes,ErrorCode
     REAL(8)   :: DeltaT
-    CHARACTER :: cBeginDateAndTime_F*iLenDateAndTime,cEndDateAndTime_F*iLenDateAndTime,cInterval_F*iLenInterval
+    CHARACTER :: cBeginDateAndTime_F*(iLenDateAndTime),cEndDateAndTime_F*(iLenDateAndTime),cInterval_F*(iLenInterval)
     
     !Initilaize
     iStat = 0
@@ -1096,7 +1096,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)           :: iStat
     
     !Local variables
-    CHARACTER :: cDateAndTime_F*iLenDateAndTime,cDateAndTimeNew*iLenDateAndTime,cInterval_F*iLenInterval
+    CHARACTER :: cDateAndTime_F*(iLenDateAndTime),cDateAndTimeNew*(iLenDateAndTime),cInterval_F*(iLenInterval)
     INTEGER   :: Interval_InMinutes
     REAL(8)   :: rDummy
     
@@ -1137,7 +1137,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)           :: isGreaterThan,iStat
     
     !Local variables
-    CHARACTER :: cDateAndTime1_F*iLenDateAndTime,cDateAndTime2_F*iLenDateAndTime
+    CHARACTER :: cDateAndTime1_F*(iLenDateAndTime),cDateAndTime2_F*(iLenDateAndTime)
     
     !Initialize
     iStat = 0

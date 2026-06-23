@@ -176,7 +176,7 @@ MODULE Class_AppDiverBypass
                                          f_iBypassRecvLoss = 2 , &
                                          f_iAllRecvLoss    = 3 
   INTEGER,PARAMETER                   :: f_iNDiverDetailColumns                          = 7 
-  CHARACTER(LEN=35),PARAMETER         :: f_cDiverDetailColTitles(f_iNDiverDetailColumns) = ['Actual Diversion'      , &
+  CHARACTER(LEN=35),PARAMETER         :: f_cDiverDetailColTitles(f_iNDiverDetailColumns) = [CHARACTER(LEN=35) :: 'Actual Diversion'      , &
                                                                                             'Diversion Shortage'    , &
                                                                                             'Recoverable Loss'      , &
                                                                                             'Non-recoverable Loss'  , &
@@ -1753,7 +1753,7 @@ CONTAINS
     INTEGER :: indxDiver,iStrmNode
     
     !Return fi there is no need to compile stream node diversions
-    IF (AppDiverBypass%lDiverRequired_Updated .EQ. .FALSE.) RETURN
+    IF (AppDiverBypass%lDiverRequired_Updated .EQV. .FALSE.) RETURN
     
     !Initialize
     AppDiverBypass%NodalDiverRequired = 0.0
@@ -1817,7 +1817,7 @@ CONTAINS
     INTEGER                     :: iCount,indxLocation,indxCol,indxDiver,I,iDestID, &
                                    iStrmNodeID,iCount1,iDestType,iDiverID
     CHARACTER                   :: UnitT*10,TextTime*17
-    CHARACTER(LEN=15),PARAMETER :: FParts(5) = ['ACT_DIV'         , &
+    CHARACTER(LEN=15),PARAMETER :: FParts(5) = [CHARACTER(LEN=15) :: 'ACT_DIV'         , &
                                                 'DIV_SHRT'        , &
                                                 'RECVRBL_LOSS'    , &
                                                 'NON_RCVRBL_LOSS' , &
@@ -1928,9 +1928,9 @@ CONTAINS
             pLocation%cFullColumnHeaders(2:) = f_cDiverDetailColTitles
             ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                        pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
-                pColumnHeaders(1:6,1) = ['                 ','              ','              ','              ','       Non    ','              ']
-                pColumnHeaders(1:6,2) = ['      Time       ','       Actual ','     Diversion','   Recoverable','   Recoverable','              ']
-                pColumnHeaders(1:6,3) = [      TextTime     ,'     Diversion','      Shortage','       Loss   ','       Loss   ','       Spills ']
+                pColumnHeaders(1:6,1) = [CHARACTER(LEN=100) :: '                 ','              ','              ','              ','       Non    ','              ']
+                pColumnHeaders(1:6,2) = [CHARACTER(LEN=100) :: '      Time       ','       Actual ','     Diversion','   Recoverable','   Recoverable','              ']
+                pColumnHeaders(1:6,3) = [CHARACTER(LEN=100) ::       TextTime     ,'     Diversion','      Shortage','       Loss   ','       Loss   ','       Spills ']
                 pColumnHeaders(:,4)   = ''
                 pFormatSpecs(1)       = '(A17,*(A14))'
                 pFormatSpecs(2)       = '(A17,*(A14))'
@@ -1942,8 +1942,8 @@ CONTAINS
             pLocation%cFullColumnHeaders(indxCol)   = TRIM(pLocation%cFullColumnHeaders(indxCol))   // ' ' // TRIM(Text_ASCII(iCount))
             pLocation%cFullColumnHeaders(indxCol+1) = TRIM(pLocation%cFullColumnHeaders(indxCol+1)) // ' ' // TRIM(Text_ASCII(iCount))
             ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders)
-                pColumnHeaders(indxCol:indxCol+1,1) = ['      Actual  ','   Delivery   ']
-                pColumnHeaders(indxCol:indxCol+1,2) = ['   Delivery to','  Shortage for']
+                pColumnHeaders(indxCol:indxCol+1,1) = [CHARACTER(LEN=100) :: '      Actual  ','   Delivery   ']
+                pColumnHeaders(indxCol:indxCol+1,2) = [CHARACTER(LEN=100) :: '   Delivery to','  Shortage for']
                 pColumnHeaders(indxCol:indxCol+1,3) =  Text1_ASCII(iCount)
             END ASSOCIATE
             pLocation%iDataColumnTypes = f_iVR

@@ -820,7 +820,7 @@ CONTAINS
             END DO
           
             !Adjust supply
-            CALL Adjust(f_iLandUse_Ag,Toler,lAdjustSuppliesForADest,SourcesMax,pDestToSupply(indxDest),pSupplyToDest,SourcesActual,SourcesRequired)
+            CALL AdjustOneSupplyType(f_iLandUse_Ag,Toler,lAdjustSuppliesForADest,SourcesMax,pDestToSupply(indxDest),pSupplyToDest,SourcesActual,SourcesRequired)
           
           END DO Ag_Supply_Adjustment_Loop
 
@@ -862,7 +862,7 @@ CONTAINS
             END DO
           
             !Adjust supply
-            CALL Adjust(f_iLandUse_Urb,Toler,lAdjustSuppliesForADest,SourcesMax,pDestToSupply(indxDest),pSupplyToDest,SourcesActual,SourcesRequired)
+            CALL AdjustOneSupplyType(f_iLandUse_Urb,Toler,lAdjustSuppliesForADest,SourcesMax,pDestToSupply(indxDest),pSupplyToDest,SourcesActual,SourcesRequired)
           
           END DO Urb_Supply_Adjustment_Loop
           
@@ -912,7 +912,7 @@ CONTAINS
     ! ############################################
     ! --- ADJUST SUPPLIES FOR AN ELEMENT
     ! ############################################
-    SUBROUTINE Adjust(iAdjustFor,Toler,lAdjustSupplies,SourcesMax,DestToSupply,SupplyToDest,SourcesActual,SourcesRequired)
+    SUBROUTINE AdjustOneSupplyType(iAdjustFor,Toler,lAdjustSupplies,SourcesMax,DestToSupply,SupplyToDest,SourcesActual,SourcesRequired)
       INTEGER,INTENT(IN)                       :: iAdjustFor
       REAL(8),INTENT(IN)                       :: Toler,SourcesActual(:),SourcesMax(:)
       LOGICAL,INTENT(IN)                       :: lAdjustSupplies(:)
@@ -988,7 +988,7 @@ CONTAINS
           END ASSOCIATE
       END DO
 
-    END SUBROUTINE Adjust
+    END SUBROUTINE AdjustOneSupplyType
     
   END SUBROUTINE AdjustSupplies
 

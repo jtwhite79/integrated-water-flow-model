@@ -1048,7 +1048,7 @@ CONTAINS
     !Local variables
     INTEGER               :: iHydType,iFileReadCode,iNData,iErrorCode,iNDataReturn,iDeltaT_InMinutes,iNIntervals
     REAL(8)               :: rFactor,rDummy
-    CHARACTER             :: cDate*f_iTimeStampLength
+    CHARACTER             :: cDate*(f_iTimeStampLength)
     REAL(8),ALLOCATABLE   :: rDates_Local(:),rValues_Local(:)
     TYPE(GenericFileType) :: InFile
     
@@ -1060,7 +1060,7 @@ CONTAINS
     IF (iStat .EQ. -1) RETURN
     
     !Read hydrograph type (flow or stream surface elevation?)
-    CALL InFile%ReadData('/Stream_Hydrographs','HydrographType',ScalarAttrData=iHydType,iStat=iStat)
+    CALL InFile%ReadHDFData('/Stream_Hydrographs','HydrographType',ScalarAttrData=iHydType,iStat=iStat)
     
     !Data type and conversion factor
     IF (iHydType .EQ. iHydFlow) THEN
@@ -1079,7 +1079,7 @@ CONTAINS
     CALL GetJulianDatesBetweenTimeStampsWithTimeIncrement(TimeStep%DeltaT_InMinutes,cBeginDate,cEndDate,rDates_Local)
     
     !Read data
-    CALL InFile%ReadData(cBeginDate,1,iHydIndex,rValues_Local,iFileReadCode,iStat)
+    CALL InFile%ReadHDFData(cBeginDate,1,iHydIndex,rValues_Local,iFileReadCode,iStat)
     IF (iStat .NE. 0) GOTO 10
     
     !Number of timesteps to sample data

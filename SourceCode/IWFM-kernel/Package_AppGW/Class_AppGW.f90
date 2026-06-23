@@ -349,7 +349,7 @@ MODULE Class_AppGW
   ! --- BUDGET RELATED DATA
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNGWBudColumns = 17
-  CHARACTER(LEN=25),PARAMETER :: f_cBudgetColumnTitles(f_iNGWBudColumns) = ['Percolation'                , &
+  CHARACTER(LEN=25),PARAMETER :: f_cBudgetColumnTitles(f_iNGWBudColumns) = [CHARACTER(LEN=25) :: 'Percolation'                , &
                                                                             'Beginning Storage (+)'      , &
                                                                             'Ending Storage (-)'         , &
                                                                             'Deep Percolation (+)'       , &
@@ -1743,7 +1743,7 @@ CONTAINS
     CALL GetJulianDatesBetweenTimeStampsWithTimeIncrement(TimeStep%DeltaT_InMinutes,cOutputBeginDateAndTime,cOutputEndDateAndTime,rOutputDates)
     
     !Read data
-    CALL InFile%ReadData(cOutputBeginDateAndTime,1,rValues,FileReadCode,iStat)
+    CALL InFile%ReadHDFData(cOutputBeginDateAndTime,1,rValues,FileReadCode,iStat)
     
     !Transfer read data to permenant array
     indxS    = (iLayer-1)*NNodes + 1
@@ -2360,7 +2360,7 @@ CONTAINS
     !Local variables
     INTEGER               :: iColNo,iFileReadCode,iNData,iDeltaT_InMinutes,iNDataReturn,iNIntervals,iErrorCode
     REAL(8)               :: rFactor,rDummy
-    CHARACTER             :: cDate*f_iTimeStampLength
+    CHARACTER(LEN=f_iTimeStampLength) :: cDate
     TYPE(GenericFileType) :: InFile
     REAL(8),ALLOCATABLE   :: rValues_Local(:),rDates_Local(:)
     
@@ -2394,7 +2394,7 @@ CONTAINS
     CALL GetJulianDatesBetweenTimeStampsWithTimeIncrement(TimeStep%DELTAT_InMinutes,cBeginDate,cEndDate,rDates_Local)
     
     !Read data
-    CALL InFile%ReadData(cBeginDate,1,iColNo,rValues_Local,iFileReadCode,iStat)
+    CALL InFile%ReadHDFData(cBeginDate,1,iColNo,rValues_Local,iFileReadCode,iStat)
     IF (iStat .NE. 0) GOTO 10
     
     !Number of timesteps to sample data
@@ -5133,7 +5133,7 @@ CONTAINS
     TYPE(TimeStepType)          :: TimeStepLocal
     CHARACTER                   :: UnitT*10,TextTime*17
     INTEGER                     :: iCount,indxLocation,indxCol,NRegions,I
-    CHARACTER(LEN=18),PARAMETER :: FParts(f_iNGWBudColumns) = ['PERC'               ,&
+    CHARACTER(LEN=18),PARAMETER :: FParts(f_iNGWBudColumns) = [CHARACTER(LEN=18) :: 'PERC'               ,&
                                                                'BEGIN_STORAGE'      ,& 
                                                                'END_STORAGE'        ,& 
                                                                'DEEP_PERC'          ,& 
@@ -5200,7 +5200,8 @@ CONTAINS
     Header%cLocationNames(NRegions+1) = 'ENTIRE MODEL AREA'
     
     !Locations
-    ALLOCATE (Header%Locations(1)                                                          , &
+    ALLOCATE (Header%Locations(1))
+    ALLOCATE ( &
               Header%Locations(1)%cFullColumnHeaders(f_iNGWBudColumns+1)                   , &
               Header%Locations(1)%iDataColumnTypes(f_iNGWBudColumns)                       , &
               Header%Locations(1)%iColWidth(f_iNGWBudColumns+1)                            , &
@@ -5230,9 +5231,9 @@ CONTAINS
       pLocation%iColWidth              = [17,(13,I=1,f_iNGWBudColumns)]
       ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
-        pColumnHeaders(:,1) = (/'                 ','              ','     Beginning','       Ending ','      Deep    ','     Gain from','              ','     Gain from','      Boundary','              ','    Subsurface','    Tile Drain','              ','      GW      ','  Outflow to  ','Net Subsurface','              ','    Cumulative'/)
-        pColumnHeaders(:,2) = (/'      Time       ','   Percolation','      Storage ','       Storage','   Percolation','      Stream  ','      Recharge','       Lake   ','       Inflow ','    Subsidence','    Irrigation','     Outflow  ','     Pumping  ','  Return Flow ','  Root Zone   ','    Inflow    ','   Discrepancy','    Subsidence'/)
-        pColumnHeaders(:,3) = (/      TextTime     ,'              ','        (+)   ','         (-)  ','       (+)    ','        (+)   ','         (+)  ','        (+)   ','        (+)   ','        (+)   ','        (+)   ','       (-)    ','       (-)    ','       (-)    ','     (-)      ','     (+)      ','       (=)    ','              '/)
+        pColumnHeaders(:,1) = (/CHARACTER(LEN=100) :: '                 ','              ','     Beginning','       Ending ','      Deep    ','     Gain from','              ','     Gain from','      Boundary','              ','    Subsurface','    Tile Drain','              ','      GW      ','  Outflow to  ','Net Subsurface','              ','    Cumulative'/)
+        pColumnHeaders(:,2) = (/CHARACTER(LEN=100) :: '      Time       ','   Percolation','      Storage ','       Storage','   Percolation','      Stream  ','      Recharge','       Lake   ','       Inflow ','    Subsidence','    Irrigation','     Outflow  ','     Pumping  ','  Return Flow ','  Root Zone   ','    Inflow    ','   Discrepancy','    Subsidence'/)
+        pColumnHeaders(:,3) = (/CHARACTER(LEN=100) ::       TextTime     ,'              ','        (+)   ','         (-)  ','       (+)    ','        (+)   ','         (+)  ','        (+)   ','        (+)   ','        (+)   ','        (+)   ','       (-)    ','       (-)    ','       (-)    ','     (-)      ','     (+)      ','       (=)    ','              '/)
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,*(A14))'
         pFormatSpecs(2)     = '(A17,*(A14))'

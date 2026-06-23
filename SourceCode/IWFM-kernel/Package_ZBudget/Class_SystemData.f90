@@ -121,10 +121,10 @@ CONTAINS
         RETURN
     END IF
     
-    CALL HDFFile%ReadData(f_cAttributesDir,'SystemData%NNodes',ScalarAttrData=SystemData%NNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir,'SystemData%NElements',ScalarAttrData=SystemData%NElements,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir,'SystemData%NLayers',ScalarAttrData=SystemData%NLayers,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir,'SystemData%NFaces',ScalarAttrData=SystemData%NFaces,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir,'SystemData%NNodes',ScalarAttrData=SystemData%NNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir,'SystemData%NElements',ScalarAttrData=SystemData%NElements,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir,'SystemData%NLayers',ScalarAttrData=SystemData%NLayers,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir,'SystemData%NFaces',ScalarAttrData=SystemData%NFaces,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     ALLOCATE (SystemData%rNodeAreas(SystemData%NNodes)                           , &
               SystemData%iElementIDs(SystemData%NElements)                       , &
               SystemData%rElementAreas(SystemData%NElements)                     , &
@@ -135,21 +135,21 @@ CONTAINS
               SystemData%lActiveNode(SystemData%NNodes,SystemData%NLayers), &
               SystemData%rElementNodeAreas(4,SystemData%NElements)               , &
               SystemData%rElementNodeAreaFractions(4,SystemData%NElements)       )
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%NodeAreas',SystemData%rNodeAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementAreas',SystemData%rElementAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementNNodes',SystemData%iElementNNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementNodes',SystemData%iElementNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%NodeAreas',SystemData%rNodeAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementAreas',SystemData%rElementAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementNNodes',SystemData%iElementNNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementNodes',SystemData%iElementNodes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     IF (SystemData%NFaces .GT. 0) THEN
-        CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%FaceElements',SystemData%iFaceElems,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-        CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%BoundaryFace',SystemData%lBoundaryFace,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%FaceElements',SystemData%iFaceElems,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%BoundaryFace',SystemData%lBoundaryFace,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     END IF
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ActiveNode',SystemData%lActiveNode,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementNodeAreas',SystemData%rElementNodeAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementNodeAreaFractions',SystemData%rElementNodeAreaFractions,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ActiveNode',SystemData%lActiveNode,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementNodeAreas',SystemData%rElementNodeAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementNodeAreaFractions',SystemData%rElementNodeAreaFractions,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     
     !Backward compatibility: Check if SystemData%ElementIDs object exists. Read if it does; otherwise create the data in memory as being equal to the element index
     IF (HDFFile%DoesHDFObjectExist(f_cAttributesDir//'/SystemData%ElementIDs')) THEN
-        CALL HDFFile%ReadData(f_cAttributesDir//'/SystemData%ElementIDs',SystemData%iElementIDs,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL HDFFile%ReadHDFData(f_cAttributesDir//'/SystemData%ElementIDs',SystemData%iElementIDs,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     ELSE
         SystemData%iElementIDs = [(indx,indx=1,SystemData%NElements)]
     END IF

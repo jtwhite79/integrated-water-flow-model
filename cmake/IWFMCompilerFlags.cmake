@@ -252,10 +252,18 @@ elseif(IWFM_USING_GFORTRAN)
         -static-libgcc
     )
 
-    # Linker: 256MB stack for large models (C2VSimFG has 30,000+ nodes)
-    target_link_options(iwfm_compiler_flags INTERFACE
-        "LINKER:-z,stacksize=256000000"
-    )
+    # Linker: 256MB stack for large models (C2VSimFG has 30,000+ nodes).
+    # macOS ld uses -stack_size with a page-aligned hex byte count (applies to
+    # executables); GNU ld on Linux uses -z stacksize=<bytes>.
+    if(APPLE)
+        target_link_options(iwfm_compiler_flags INTERFACE
+            "LINKER:-stack_size,0x10000000"
+        )
+    else()
+        target_link_options(iwfm_compiler_flags INTERFACE
+            "LINKER:-z,stacksize=256000000"
+        )
+    endif()
 
     # Debug-specific flags
     target_compile_options(iwfm_compiler_flags INTERFACE

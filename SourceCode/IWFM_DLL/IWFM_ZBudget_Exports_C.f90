@@ -93,7 +93,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
     
     !Local variables
-    CHARACTER :: cFileName_F*iLen
+    CHARACTER :: cFileName_F*(iLen)
     
     CALL String_Copy_C_F(cFileName,cFileName_F)
     
@@ -125,7 +125,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
   
     !Local variables
-    CHARACTER :: cFileName_F*iLen
+    CHARACTER :: cFileName_F*(iLen)
     
     CALL String_Copy_C_F(cFileName,cFileName_F)
     
@@ -223,7 +223,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
     
     !!Local variables
-    CHARACTER :: cDateAndTimeBegin_F*iLenDateAndTime,cOutputInterval_F*iLenInterval
+    CHARACTER :: cDateAndTimeBegin_F*(iLenDateAndTime),cOutputInterval_F*(iLenInterval)
     INTEGER   :: iDiversifiedReadCols_Work(iNDiversifiedReadColsMax-1,iNZones)
     
     !C strings to Fortran strings
@@ -256,7 +256,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER :: cDateAndTimeBegin_F*iLenDateAndTime,cDateAndTimeEnd_F*iLenDateAndTime,cOutputInterval_F*iLenInterval
+    CHARACTER :: cDateAndTimeBegin_F*(iLenDateAndTime),cDateAndTimeEnd_F*(iLenDateAndTime),cOutputInterval_F*(iLenInterval)
     INTEGER   :: iDummyArray(iNDiversifiedReadCols-1)
     
     !C strings to Fortran strings
@@ -288,7 +288,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER                               :: cDateAndTimeBegin_F*iLenDateAndTime,cDateAndTimeEnd_F*iLenDateAndTime,cOutputInterval_F*iLenInterval
+    CHARACTER                               :: cDateAndTimeBegin_F*(iLenDateAndTime),cDateAndTimeEnd_F*(iLenDateAndTime),cOutputInterval_F*(iLenInterval)
     INTEGER                                 :: iDummyArray(iNDiversifiedReadCols-1)
     PROCEDURE(Abstract_CallbackFun),POINTER :: pCallbackFun_F
     
@@ -341,7 +341,7 @@ CONTAINS
     
     !Local variables
     TYPE(TimeStepType) :: TimeStep
-    CHARACTER          :: cDateAndTime*f_iTimeStampLength,cDataDatesAndTimes_F*iLenDates,cInterval_F*iLenInterval
+    CHARACTER          :: cDateAndTime*(f_iTimeStampLength),cDataDatesAndTimes_F*(iLenDates),cInterval_F*(iLenInterval)
     INTEGER            :: indx,NTimeSteps
     
     !Initialize
@@ -386,7 +386,7 @@ CONTAINS
     !Local variables
     INTEGER                                       :: indx
     CHARACTER(LEN=f_iColumnHeaderLen),ALLOCATABLE :: cHeaders_Work(:)
-    CHARACTER                                     :: AreaUnit_F*iLenUnit,VolumeUnit_F*iLenUnit,cColumnHeaders_F*iLenColumnHeaders
+    CHARACTER                                     :: AreaUnit_F*(iLenUnit),VolumeUnit_F*(iLenUnit),cColumnHeaders_F*(iLenColumnHeaders)
     
     !Initialize
     iStat            = 0
@@ -430,7 +430,7 @@ CONTAINS
     INTEGER                                       :: indx
     CHARACTER(LEN=f_iColumnHeaderLen),ALLOCATABLE :: cHeaders_Work(:)
     INTEGER,ALLOCATABLE                           :: iColumnsDiversfd_Local(:)
-    CHARACTER                                     :: AreaUnit_F*iLenUnit,VolumeUnit_F*iLenUnit,cColumnHeaders_F*iLenColumnHeaders
+    CHARACTER                                     :: AreaUnit_F*(iLenUnit),VolumeUnit_F*(iLenUnit),cColumnHeaders_F*(iLenColumnHeaders)
     
     !Initialize
     iStat            = 0
@@ -539,7 +539,7 @@ CONTAINS
     !Local variables
     INTEGER                       :: indx,iCount
     CHARACTER(LEN=50),ALLOCATABLE :: cZoneNamesArray(:)
-    CHARACTER                     :: cZoneNames_F*iLenZoneNames
+    CHARACTER                     :: cZoneNames_F*(iLenZoneNames)
     INTEGER,ALLOCATABLE           :: iZoneList_Local(:)
     
     !Initialize
@@ -594,7 +594,7 @@ CONTAINS
     !Local variables
     CHARACTER(LEN=ModNameLen+24),PARAMETER :: ThisProcedure = ModName // 'IW_ZBudget_GetTitleLines'
     INTEGER                                :: indx
-    CHARACTER                              :: cUnit_AR_F*iLenUnit,cUnit_VL_F*iLenUnit,cTitles_Work(iNTitles)*(iLenTitles/iNTitles),cTitles_F*iLenTitles
+    CHARACTER                              :: cUnit_AR_F*(iLenUnit),cUnit_VL_F*(iLenUnit),cTitles_Work(iNTitles)*(iLenTitles/iNTitles),cTitles_F*(iLenTitles)
     CLASS(*),POINTER                       :: pZone
     
     !Initialize

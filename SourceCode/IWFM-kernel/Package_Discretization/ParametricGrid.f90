@@ -314,7 +314,7 @@ CONTAINS
                 YP = Grid%Y(iNode)
             END IF
             CALL InterpolateParametricGrid( XP , YP , ParamValues(iNode,:,:) , Stat)
-            IF (Stat .EQ. .FALSE.) THEN
+            IF (Stat .EQV. .FALSE.) THEN
                 ID = FeatureIDs(iNode)
                 CALL Logger%SetLastMessage('FE node/element ' // TRIM(IntTotext(ID)) // ' cannot be located in parametric grid number ' // TRIM(IntToText(indxGrid)) // ' for ' // TRIM(cDescription) // '!',f_iFatal,Thisprocedure)
                 iStat = -1

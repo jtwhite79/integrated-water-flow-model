@@ -148,7 +148,7 @@ MODULE Class_AppStream_v50
   ! --- BUDGET RELATED DATA
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNStrmBudColumns = 19
-  CHARACTER(LEN=30),PARAMETER :: f_cBudgetColumnTitles(f_iNStrmBudColumns) = ['Upstream Inflow (+)'             , &
+  CHARACTER(LEN=30),PARAMETER :: f_cBudgetColumnTitles(f_iNStrmBudColumns) = [CHARACTER(LEN=30) :: 'Upstream Inflow (+)'             , &
                                                                               'Downstream Outflow (-)'          , &
                                                                               'Change in Storage (-)'           , &
                                                                               'Tributary Inflow (+)'            , &
@@ -2522,7 +2522,7 @@ CONTAINS
     TYPE(TimeStepType)          :: TimeStepLocal
     CHARACTER                   :: UnitT*10,TextTime*17
     LOGICAL                     :: lNodeBudOutput
-    CHARACTER(LEN=21),PARAMETER :: FParts(f_iNStrmBudColumns)=['UPSTRM_INFLOW'         , &
+    CHARACTER(LEN=21),PARAMETER :: FParts(f_iNStrmBudColumns)=[CHARACTER(LEN=21) :: 'UPSTRM_INFLOW'         , &
                                                                'DOWNSTRM_OUTFLOW'      , &
                                                                'STORAGE_CHANGE'        , &
                                                                'TRIB_INFLOW'           , & 
@@ -2606,7 +2606,8 @@ CONTAINS
     END IF
     
     !Locations
-    ALLOCATE (Header%Locations(1)                                                             , &
+    ALLOCATE (Header%Locations(1))
+    ALLOCATE ( &
               Header%Locations(1)%cFullColumnHeaders(f_iNStrmBudColumns+1)                    , &
               Header%Locations(1)%iDataColumnTypes(f_iNStrmBudColumns)                        , &
               Header%Locations(1)%iColWidth(f_iNStrmBudColumns+1)                             , &
@@ -2639,9 +2640,9 @@ CONTAINS
       ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
         TextTime            = ArrangeText(TRIM(UnitT),17)
-        pColumnHeaders(:,1) = ['                 ','     Upstream','   Downstream','   Change in ','    Tributary','        Tile ','      GW     ','             ','       Return','  Diversion  ','      Pond   ','Gain from GW ',' Gain from GW','    Gain from','   Riparian ','   Surface  ','             ','      By-pass','             ','    Diversion']
-        pColumnHeaders(:,2) = ['      Time       ','      Inflow ','    Outflow  ','    Storage  ','     Inflow  ','        Drain','  Return Flow','       Runoff','        Flow ','    Spills   ','      Drain  ','inside Model ','outside Model','      Lake   ','      ET    ',' Evaporation','    Diversion','        Flow ','  Discrepancy','    Shortage ']
-        pColumnHeaders(:,3) = [           TextTime,'       (+)   ','      (-)    ','      (-)    ','      (+)    ','         (+) ','      (+)    ','        (+)  ','        (+)  ','     (+)     ','       (+)   ','     (+)     ','      (+)    ','       (+)   ','      (-)   ','     (-)    ','       (-)   ','        (-)  ','      (=)    ','             ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','     Upstream','   Downstream','   Change in ','    Tributary','        Tile ','      GW     ','             ','       Return','  Diversion  ','      Pond   ','Gain from GW ',' Gain from GW','    Gain from','   Riparian ','   Surface  ','             ','      By-pass','             ','    Diversion']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','      Inflow ','    Outflow  ','    Storage  ','     Inflow  ','        Drain','  Return Flow','       Runoff','        Flow ','    Spills   ','      Drain  ','inside Model ','outside Model','      Lake   ','      ET    ',' Evaporation','    Diversion','        Flow ','  Discrepancy','    Shortage ']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::            TextTime,'       (+)   ','      (-)    ','      (-)    ','      (+)    ','         (+) ','      (+)    ','        (+)  ','        (+)  ','     (+)     ','       (+)   ','     (+)     ','      (+)    ','       (+)   ','      (-)   ','     (-)    ','       (-)   ','        (-)  ','      (=)    ','             ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,*(A13))'
         pFormatSpecs(2)     = '(A17,*(A13))'

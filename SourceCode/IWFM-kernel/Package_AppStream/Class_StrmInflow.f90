@@ -402,7 +402,7 @@ CONTAINS
     iStat = 0
 
     !If no file is defined, return
-    IF (StrmInflow%lDefined .EQ. .FALSE.) RETURN
+    IF (StrmInflow%lDefined .EQV. .FALSE.) RETURN
 
     !Read data
     CALL StrmInflow%ReadTSData(TimeStep,'Stream inflow data',FileReadCode,iStat)

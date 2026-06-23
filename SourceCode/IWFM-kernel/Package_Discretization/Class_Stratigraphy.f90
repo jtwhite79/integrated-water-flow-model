@@ -475,7 +475,7 @@ CONTAINS
     INTEGER,INTENT(IN)                 :: Node
     INTEGER                            :: NL
 
-    NL = COUNT(Stratigraphy%ActiveNode(Node,:) .EQ. .TRUE.)
+    NL = COUNT(Stratigraphy%ActiveNode(Node,:) .EQV. .TRUE.)
 
   END FUNCTION GetNActiveLayers
   

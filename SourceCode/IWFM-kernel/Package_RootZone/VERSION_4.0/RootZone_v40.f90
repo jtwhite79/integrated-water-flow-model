@@ -3020,7 +3020,7 @@ CONTAINS
             NLandUse                    = NLandUse + 1
         END IF
         IF (RootZone%Flags%lNVRV_Defined) THEN
-            cLUCodes(NLandUse+1:)       = ['NV','RV']
+            cLUCodes(NLandUse+1:)       = [CHARACTER(LEN=2) :: 'NV','RV']
             ElemObsAreas1(NLandUse+1,:) = RootZone%NVRVRootZone%NativeVeg%Area(:,1)
             ElemObsAreas1(NLandUse+2,:) = RootZone%NVRVRootZone%RiparianVeg%Area(:,1)
         END IF

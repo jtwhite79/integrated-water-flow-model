@@ -616,7 +616,7 @@ CONTAINS
     INTEGER,PARAMETER                      :: RequiredFiles(3) = [PP_ElementConfigFileID , &
                                                                   PP_NodeFileID          , &
                                                                   PP_StratigraphyFileID  ]
-    CHARACTER(LEN=45),PARAMETER            :: FileDescriptor(nPP_InputFiles) = ['Binary output             '  , &
+    CHARACTER(LEN=45),PARAMETER            :: FileDescriptor(nPP_InputFiles) = [CHARACTER(LEN=45) :: 'Binary output             '  , &
                                                                                 'Element configuration data'  , &
                                                                                 'Node data                 '  , &
                                                                                 'Stratigraphy data         '  , &
@@ -734,7 +734,7 @@ CONTAINS
     INTEGER,PARAMETER                      :: RequiredFiles(3) = [PP_ElementConfigFileID , &
                                                                   PP_NodeFileID          , &
                                                                   PP_StratigraphyFileID  ]
-    CHARACTER(LEN=45),PARAMETER            :: FileDescriptor(nPP_InputFiles) = ['Binary output             '  , &
+    CHARACTER(LEN=45),PARAMETER            :: FileDescriptor(nPP_InputFiles) = [CHARACTER(LEN=45) :: 'Binary output             '  , &
                                                                                 'Element configuration data'  , &
                                                                                 'Node data                 '  , &
                                                                                 'Stratigraphy data         '  , &
@@ -1666,7 +1666,7 @@ CONTAINS
         iStat = -1
         RETURN
     END IF
-    IF (.NOT. IsTimeIntervalValid(cUnitT)) THEN
+    IF (IsTimeIntervalValid(cUnitT) .EQ. 0) THEN
         CALL Model%Logger%SetLastMessage('Simulation time interval ('//TRIM(cUnitT)//') is not recognized!',f_iFatal,ThisProcedure)
         iStat = -1
         RETURN
@@ -2625,8 +2625,8 @@ CONTAINS
     INTEGER                      :: iNCols,iNYears,indxTime,indxCol,iErrorCode,iDay,iMonth,iYear,iJulianDate, &
                                     iDeltaT_InMinutes
     REAL(8)                      :: rDummy,rDiff  
-    CHARACTER                    :: cBeginDate_Local*f_iTimeStampLength,cEndDate_Local*f_iTimeStampLength    , &
-                                    cAdjustedBeginDate*f_iTimeStampLength,cAdjustedEndDate*f_iTimeStampLength
+    CHARACTER                    :: cBeginDate_Local*(f_iTimeStampLength),cEndDate_Local*(f_iTimeStampLength)    , &
+                                    cAdjustedBeginDate*(f_iTimeStampLength),cAdjustedEndDate*(f_iTimeStampLength)
     REAL(8),ALLOCATABLE          :: rFlowsWork(:,:)
     
     !Adjust beginning date so that we start from Oct
@@ -2768,8 +2768,8 @@ CONTAINS
     CHARACTER(LEN=ModNameLen+21) :: ThisProcedure = ModName // 'GetBudget_AnnualFlows'
     INTEGER                      :: indx,iDay,iMonth,iYear,iJulianDate,iDELTAT_InMinutes,iNCols,indxTime,     &
                                     iNYears,iYearBegin,iYearEnd,iErrorCode
-    CHARACTER                    :: cBeginDate_Local*f_iTimeStampLength,cEndDate_Local*f_iTimeStampLength,    &
-                                    cAdjustedBeginDate*f_iTimeStampLength,cAdjustedEndDate*f_iTimeStampLength
+    CHARACTER                    :: cBeginDate_Local*(f_iTimeStampLength),cEndDate_Local*(f_iTimeStampLength),    &
+                                    cAdjustedBeginDate*(f_iTimeStampLength),cAdjustedEndDate*(f_iTimeStampLength)
     REAL(8)                      :: rDummy
     REAL(8),ALLOCATABLE          :: rFlowsWork(:,:)
     
@@ -3282,8 +3282,8 @@ CONTAINS
     INTEGER                      :: iDay,iMonth,iYear,iJulianDate,iDELTAT_InMinutes,iNCols, &
                                     iNTime,indxTime,indxCol
     REAL(8)                      :: rDummy,rNYears,rDiff
-    CHARACTER                    :: cAdjustedBeginDate*f_iTimeStampLength,cAdjustedEndDate*f_iTimeStampLength,cBeginDate_Local*f_iTimeStampLength, &
-                                    cEndDate_Local*f_iTimeStampLength
+    CHARACTER                    :: cAdjustedBeginDate*(f_iTimeStampLength),cAdjustedEndDate*(f_iTimeStampLength),cBeginDate_Local*(f_iTimeStampLength), &
+                                    cEndDate_Local*(f_iTimeStampLength)
     REAL(8),ALLOCATABLE          :: rFlows_Work(:,:)
 
     !Make sure ZBudget data can be averaged monthly
@@ -3416,8 +3416,8 @@ CONTAINS
     INTEGER                      :: iDay,iMonth,iYear,iJulianDate,iDELTAT_InMinutes,iYearBegin,iYearEnd,iNYears, &
                                     indx,iNCols,indxTime,iErrorCode
     REAL(8)                      :: rDummy
-    CHARACTER                    :: cAdjustedBeginDate*f_iTimeStampLength,cAdjustedEndDate*f_iTimeStampLength,cBeginDate_Local*f_iTimeStampLength, &
-                                    cEndDate_Local*f_iTimeStampLength
+    CHARACTER                    :: cAdjustedBeginDate*(f_iTimeStampLength),cAdjustedEndDate*(f_iTimeStampLength),cBeginDate_Local*(f_iTimeStampLength), &
+                                    cEndDate_Local*(f_iTimeStampLength)
     REAL(8),ALLOCATABLE          :: rFlows_Work(:,:)
     
     !Adjust beginning date so that we start from Oct (or Jan if for calendar year)
@@ -7053,7 +7053,7 @@ CONTAINS
         DO indxNode=1,NNodes
             IF (ActiveLayerAbove(indxNode).LE.0  .AND.  ActiveLayerBelow(indxNode).LE.0) THEN
                 pConnectedNode => Model%AppGrid%AppNode(indxNode)%ConnectedNode
-                IF (ALL(pActiveNode(pConnectedNode) .EQ. .FALSE.)) THEN
+                IF (ALL(pActiveNode(pConnectedNode) .EQV. .FALSE.)) THEN
                     IF (.NOT. TitlePrinted) THEN
                         CALL Model%Logger%LogMessage('',f_iMessage,'',f_iFILE)
                         CALL Model%Logger%LogMessage('***** WARNING ******',f_iMessage,'',f_iFILE)
@@ -7103,7 +7103,7 @@ CONTAINS
         cFormat = '(I7, 2X, F10.2,' // TRIM(IntToText(NLayers)) // '(2X,I3,2X,F9.2,2X,F9.2,2X))'
         DO indxNode=1,NNodes
             iActiveNode = 1
-            WHERE (Model%Stratigraphy%ActiveNode(indxNode,:) .EQ. .FALSE.) iActiveNode = -99
+            WHERE (Model%Stratigraphy%ActiveNode(indxNode,:) .EQV. .FALSE.) iActiveNode = -99
             WRITE (ALine,TRIM(cFormat))                                                      &
                          iGWNodeIDs(indxNode),Model%Stratigraphy%GSElev(indxNode)*FACTLTOU , &
                          (iActiveNode(indxLayer)                                           , &

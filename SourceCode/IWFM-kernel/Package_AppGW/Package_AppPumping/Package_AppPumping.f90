@@ -1405,7 +1405,7 @@ CONTAINS
         indxElem = AppPumping%Wells(indx)%Element
         NVertex  = AppGrid%NVertex(indxElem)
         Vertex   = AppGrid%Vertex(:,indxElem)
-        IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),:) .EQ. .FALSE.)) THEN
+        IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),:) .EQV. .FALSE.)) THEN
             iWellID = AppPumping%Wells(indx)%ID
             iElemID = AppGrid%AppElement(indxElem)%ID
             WRITE (MessageArray(1),'(A10,i6,A12,i8)') 'Well ID = ',iWellID,' at element ',iElemID
@@ -1419,7 +1419,7 @@ CONTAINS
         indxElem = AppPumping%ElemPumps(indx)%Element
         NVertex  = AppGrid%NVertex(indxElem)
         Vertex   = AppGrid%Vertex(:,indxElem)
-        IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),:) .EQ. .FALSE.)) THEN
+        IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),:) .EQV. .FALSE.)) THEN
             iElemID = AppGrid%AppElement(indxElem)%ID
             WRITE (MessageArray(1),'(A28,i8)') 'Elem. Pump at element ',iElemID
             CALL Logger%LogMessage(MessageArray(1),f_iMessage,ThisProcedure)

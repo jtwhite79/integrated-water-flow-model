@@ -57,6 +57,15 @@ if(IWFM_USE_SYSTEM_HDF5)
         message(STATUS "HDF5 found (module mode): ${HDF5_VERSION}")
     endif()
 
+    # On the system-HDF5 path, HDF5 is linked through the IWFM::Dependencies
+    # interface target (HDF5_Fortran_Interface / HDF5::HDF5 / HDF5::Fortran).
+    # The ExternalProject path defines iwfm_link_hdf5() to force-load the static
+    # HDF5 archives per target; here there is nothing extra to do, so provide a
+    # no-op stub so the unconditional calls in SourceCode/CMakeLists.txt succeed.
+    function(iwfm_link_hdf5 target)
+        # Intentionally empty: HDF5 already linked via IWFM::Dependencies.
+    endfunction()
+
     return()
 endif()
 

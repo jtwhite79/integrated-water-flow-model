@@ -590,7 +590,7 @@ CONTAINS
     !Local variables
     CHARACTER(LEN=ModNameLen+29),PARAMETER :: ThisProcedure = ModName // 'AllHeadOutFile_ForInquiry_New'
     INTEGER                                :: ErrorCode,iCount,indxLayer,indxNode
-    CHARACTER                              :: cErrorMsg*300,cPathNames(NNodes*NLayers)*80
+    CHARACTER                              :: cErrorMsg*300,cPathNames(NNodes*(NLayers))*80
     
     !Initialize
     iStat = 0

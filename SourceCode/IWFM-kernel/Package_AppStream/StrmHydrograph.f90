@@ -554,7 +554,9 @@ CONTAINS
                              WorkArray(2)*3000,TitleLines(1)*325
     INTEGER               :: NColumnsOfData,NRowsOfData,indx,ErrorCode
     LOGICAL               :: OverwriteNColumnsOfData,PrintColumnNo
-    CHARACTER,ALLOCATABLE :: cPart*32(:),DataUnit*10(:),DataType*10(:),Header*50(:,:)
+    CHARACTER(LEN=32),ALLOCATABLE :: cPart(:)
+    CHARACTER(LEN=10),ALLOCATABLE :: DataUnit(:),DataType(:)
+    CHARACTER(LEN=50),ALLOCATABLE :: Header(:,:)
     INTEGER,ALLOCATABLE   :: iHydNodes_Local(:)
     
     !Initialize
@@ -673,7 +675,7 @@ CONTAINS
     !Local variables
     INTEGER               :: indx,ErrorCode
     CHARACTER             :: BPart*32,EandFParts*64
-    CHARACTER,ALLOCATABLE :: cPathNames*80(:),CPart*32(:)
+    CHARACTER,ALLOCATABLE :: cPathNames(:)*80,CPart(:)*32
     
     !Initialize
     iStat = 0

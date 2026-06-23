@@ -207,7 +207,7 @@ CONTAINS
     
     !Local variables
     CHARACTER(LEN=ModNameLen+3)                      :: ThisProcedure = ModName // 'New'
-    CHARACTER                                        :: ALine*1000,cBudgetCropCode*LenCropCode
+    CHARACTER                                        :: ALine*1000,cBudgetCropCode*(LenCropCode)
     CHARACTER(LEN=f_iMaxLocationNameLen),ALLOCATABLE :: cRegionNames(:)
     CHARACTER(LEN=f_iMaxLocationNameLen)             :: SubRegionNames(AppGrid%NSubregions+1)
     TYPE(GenericFileType)                            :: CropDataFile

@@ -112,7 +112,7 @@ MODULE WSA_ANN
                                                        f_iVarType_ETa                , &
                                                        f_iVarType_AgUrbArea          , &
                                                        f_iVarType_NVRVArea           ]
-  CHARACTER(LEN=17),PARAMETER :: f_cDSSCParts(f_iNVarTypes) = ['GENERIC_TS_VAR'    , &
+  CHARACTER(LEN=17),PARAMETER :: f_cDSSCParts(f_iNVarTypes) = [CHARACTER(LEN=17) :: 'GENERIC_TS_VAR'    , &
                                                                'SEASON'            , &
                                                                'SURFACE_INFLOW'    , &
                                                                'RUNOFF'            , &
@@ -575,9 +575,9 @@ CONTAINS
     !Local variables
     CHARACTER(LEN=ModNameLen+14),PARAMETER :: ThisProcedure = ModName // 'VarOutFile_New'
     INTEGER                                :: iCount,indxVar,indxWSA,iVarType,iNColumns,iVar
-    CHARACTER                              :: cFormatSpec*30,FPart*32(1),cText*6,cTitleLines*1000(1),cWorkArray*100(3),       &
-                                              cHeaderFormat*50(6)
-    CHARACTER,ALLOCATABLE                  :: cDataUnits*10(:),cDataTypes*10(:),CPart*32(:),cHeaders*50(:,:),cMiscArray*50(:)
+    CHARACTER                              :: cFormatSpec*30,FPart(1)*32,cText*6,cTitleLines(1)*1000,cWorkArray(3)*100,       &
+                                              cHeaderFormat(6)*50
+    CHARACTER,ALLOCATABLE                  :: cDataUnits(:)*10,cDataTypes(:)*10,CPart(:)*32,cHeaders(:,:)*50,cMiscArray(:)*50
     CHARACTER(:),ALLOCATABLE               :: cAbsPathFileName
     
     !Number of print-out columns
@@ -694,10 +694,10 @@ CONTAINS
     !Local variables
     CHARACTER(LEN=ModNameLen+14),PARAMETER :: ThisProcedure = ModName // 'WSAOutFile_New'
     INTEGER                                :: indxWSA,iNWSA
-    CHARACTER                              :: cFormatSpec*30,cDataUnits*10(WSA%iNWSA),FPart*32(1),cText*6,      &
-                                              cDataTypes*10(1),CPart*32(WSA%iNWSA),cTitleLines*1000(1),         &
-                                              cWorkArray*100(2),cHeaders*50(4,WSA%iNWSA+1),cHeaderFormat*50(4), &
-                                              cMiscArray*50(WSA%iNWSA)
+    CHARACTER                              :: cFormatSpec*30,cDataUnits(WSA%iNWSA)*10,FPart(1)*32,cText*6,      &
+                                              cDataTypes(1)*10,CPart(WSA%iNWSA)*32,cTitleLines(1)*1000,         &
+                                              cWorkArray(2)*100,cHeaders(4,WSA%iNWSA+1)*50,cHeaderFormat(4)*50, &
+                                              cMiscArray(WSA%iNWSA)*50
     CHARACTER(:),ALLOCATABLE               :: cAbsPathFileName
     
     !Initializes

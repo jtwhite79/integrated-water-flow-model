@@ -1,0 +1,46 @@
+# IWFM build environment (gfortran toolchain)
+#
+# Encapsulates the compiler + libraries needed to build IWFM from source on
+# Linux/macOS with GNU Fortran. The upstream build uses Intel Fortran (ifx) via
+# Visual Studio on Windows; that toolchain is unavailable on macOS/arm64, so we
+# target gfortran instead.
+#
+# Create / update:
+#   mamba env create  -f environment.yml      # first time
+#   mamba env update  -f environment.yml      # after edits
+#   mamba activate iwfm-build
+#
+# NOT covered by this env (must be vendored into ./deps -- see notes below):
+#   HEC-DSS "heclib"  -- US Army Corps DSS library (ZOPEN/ZRRTS/...). Not on
+#                        conda-forge. Build from HEC source or stub it out.
+
+name: iwfm-build
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  # --- Toolchain -----------------------------------------------------------
+  # `fortran-compiler` pulls gfortran + sets FC and activation flags.
+  # c/cxx compilers are needed because heclib (when vendored) mixes C + Fortran.
+  - fortran-compiler
+  - c-compiler
+  - cxx-compiler
+
+  # --- Build drivers -------------------------------------------------------
+  - cmake >=3.24
+  - ninja
+  - make
+  - pkg-config
+
+  # --- Libraries -----------------------------------------------------------
+  # conda-forge hdf5 ships the Fortran bindings (libhdf5_fortran + .mod files).
+  # The solver keeps the hdf5 Fortran .mod ABI in sync with the gfortran it
+  # installs alongside it, so do not pin them independently.
+  - hdf5
+  - zlib
+
+  # --- Helpers (repo scripts / post-processing tools) ----------------------
+  - python >=3.11
+  - numpy

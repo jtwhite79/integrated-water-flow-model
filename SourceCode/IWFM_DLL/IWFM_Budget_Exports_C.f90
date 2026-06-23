@@ -77,7 +77,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
     
     !Local variables
-    CHARACTER :: cFileName_F*iLen
+    CHARACTER :: cFileName_F*(iLen)
     
     !Initialize
     iStat = 0
@@ -166,7 +166,7 @@ CONTAINS
     !Local variables
     INTEGER                              :: indx
     CHARACTER(LEN=f_iMaxLocationNameLen) :: cNames(NLocations)
-    CHARACTER                            :: cLocNames_F*iLenLocNames
+    CHARACTER                            :: cLocNames_F*(iLenLocNames)
     
     !Initialize
     iStat        = 0
@@ -212,7 +212,7 @@ CONTAINS
     
     !Local variables
     TYPE(TimeStepType) :: TimeStep
-    CHARACTER          :: cDateAndTime*f_iTimeStampLength,cDataDatesAndTimes_F*iLenDates,cInterval_F*iLenInterval
+    CHARACTER          :: cDateAndTime*(f_iTimeStampLength),cDataDatesAndTimes_F*(iLenDates),cInterval_F*(iLenInterval)
     INTEGER            :: indx
     
     !Initialize
@@ -289,7 +289,7 @@ CONTAINS
     
     !Local variables
     CHARACTER(LEN=iLenTitles/NTitles) :: cTitles_Work(NTitles)
-    CHARACTER                         :: LengthUnit_F*iLenUnit,AreaUnit_F*iLenUnit,VolumeUnit_F*iLenUnit,cAltLocName_F*iLenAltLocName,cTitles_F*iLenTitles 
+    CHARACTER                         :: LengthUnit_F*(iLenUnit),AreaUnit_F*(iLenUnit),VolumeUnit_F*(iLenUnit),cAltLocName_F*(iLenAltLocName),cTitles_F*(iLenTitles) 
     INTEGER                           :: indx
     
     !Initialize
@@ -349,7 +349,7 @@ CONTAINS
     !Local variables
     INTEGER                           :: indx,NDataColumns
     CHARACTER(LEN=f_iColumnHeaderLen) :: cHeaders_Work(NColumns)
-    CHARACTER                         :: LengthUnit_F*iLenUnit,AreaUnit_F*iLenUnit,VolumeUnit_F*iLenUnit,cColumnHeaders_F*iLenColumnHeaders
+    CHARACTER                         :: LengthUnit_F*(iLenUnit),AreaUnit_F*(iLenUnit),VolumeUnit_F*(iLenUnit),cColumnHeaders_F*(iLenColumnHeaders)
     
     !Initialize
     iStat            = 0
@@ -394,7 +394,7 @@ CONTAINS
     
     !Local variables
     REAL(8)   :: rDummy
-    CHARACTER :: cDateAndTimeBegin_F*iLenDateAndTime,cDateAndTimeEnd_F*iLenDateAndTime,cOutputInterval_F*iLenInterval
+    CHARACTER :: cDateAndTimeBegin_F*(iLenDateAndTime),cDateAndTimeEnd_F*(iLenDateAndTime),cOutputInterval_F*(iLenInterval)
     
     !C strings to Fortran strings
     CALL String_Copy_C_F(cDateAndTimeBegin,cDateAndTimeBegin_F)
@@ -429,7 +429,7 @@ CONTAINS
     !Local variables
     INTEGER :: iDataUnitType
     REAL(8) :: rDummy
-    CHARACTER :: cOutputInterval_F*iLenInterval,cOutputBeginDateAndTime_F*iLenDateAndTime,cOutputEndDateAndTime_F*iLenDateAndTime
+    CHARACTER :: cOutputInterval_F*(iLenInterval),cOutputBeginDateAndTime_F*(iLenDateAndTime),cOutputEndDateAndTime_F*(iLenDateAndTime)
     
     !C strings to Fortran strings
     CALL String_Copy_C_F(cOutputInterval,cOutputInterval_F)

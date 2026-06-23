@@ -169,12 +169,12 @@ MODULE Package_AppUnsatZone
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNBudColumns  = 5  , &
                                  f_iNZBudColumns = 4
-  CHARACTER(LEN=24),PARAMETER :: f_cBudgetColumnTitles(f_iNBudColumns)   = ['Beginning Storage (+)'      , &
+  CHARACTER(LEN=24),PARAMETER :: f_cBudgetColumnTitles(f_iNBudColumns)   = [CHARACTER(LEN=24) :: 'Beginning Storage (+)'      , &
                                                                             'Ending Storage (-)'         , &
                                                                             'Percolation (+)'            , &
                                                                             'Deep Percolation (-)'       , &
                                                                             'Discrepancy (=)'            ]
-  CHARACTER(LEN=24),PARAMETER :: f_cZBudgetColumnTitles(f_iNZBudColumns) = ['Beginning Storage (+)'      , &
+  CHARACTER(LEN=24),PARAMETER :: f_cZBudgetColumnTitles(f_iNZBudColumns) = [CHARACTER(LEN=24) :: 'Beginning Storage (+)'      , &
                                                                             'Ending Storage (-)'         , &
                                                                             'Percolation (+)'            , &
                                                                             'Deep Percolation (-)'       ]
@@ -479,7 +479,7 @@ CONTAINS
     Header%ASCIIOutput%cNumberFormat    = '(A16,1X,100(F14.2,2X))'
     
     !DSS pathnames
-    Header%cDSSFParts = ['BEGIN_STORAGE'      ,& 
+    Header%cDSSFParts = [CHARACTER(LEN=13) :: 'BEGIN_STORAGE'      ,& 
                          'END_STORAGE'        ,& 
                          'PERC'               ,&                                                           
                          'DEEP_PERC'          ]
@@ -1204,7 +1204,7 @@ CONTAINS
     TYPE(TimeStepType)          :: TimeStepLocal
     CHARACTER                   :: UnitT*10,TextTime*17
     INTEGER                     :: iCount,indxLocation,indxCol,NRegions,I
-    CHARACTER(LEN=18),PARAMETER :: FParts(f_iNBudColumns) = ['BEGIN_STORAGE'      ,& 
+    CHARACTER(LEN=18),PARAMETER :: FParts(f_iNBudColumns) = [CHARACTER(LEN=18) :: 'BEGIN_STORAGE'      ,& 
                                                              'END_STORAGE'        ,& 
                                                              'PERC'               ,&                                                           
                                                              'DEEP_PERC'          ,& 
@@ -1259,7 +1259,8 @@ CONTAINS
     Header%cLocationNames(NRegions+1) = 'ENTIRE MODEL AREA'
 
     !Locations
-    ALLOCATE (Header%Locations(1)                                                           , &
+    ALLOCATE (Header%Locations(1))
+    ALLOCATE ( &
               Header%Locations(1)%cFullColumnHeaders(f_iNBudColumns+1)                      , &
               Header%Locations(1)%iDataColumnTypes(f_iNBudColumns)                          , &
               Header%Locations(1)%iColWidth(f_iNBudColumns+1)                               , &
@@ -1277,9 +1278,9 @@ CONTAINS
       pLocation%iColWidth              = [17,(13,I=1,f_iNBudColumns)]
       ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
-        pColumnHeaders(:,1) = ['                 ','     Beginning','       Ending ','              ','      Deep    ','              ']
-        pColumnHeaders(:,2) = ['      Time       ','      Storage ','       Storage','   Percolation','   Percolation','   Discrepancy']
-        pColumnHeaders(:,3) = [      TextTime     ,'        (+)   ','         (-)  ','       (+)    ','       (-)    ','       (=)    ']
+        pColumnHeaders(:,1) = [CHARACTER(LEN=100) :: '                 ','     Beginning','       Ending ','              ','      Deep    ','              ']
+        pColumnHeaders(:,2) = [CHARACTER(LEN=100) :: '      Time       ','      Storage ','       Storage','   Percolation','   Percolation','   Discrepancy']
+        pColumnHeaders(:,3) = [CHARACTER(LEN=100) ::       TextTime     ,'        (+)   ','         (-)  ','       (+)    ','       (-)    ','       (=)    ']
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,15A14)'
         pFormatSpecs(2)     = '(A17,15A14)'

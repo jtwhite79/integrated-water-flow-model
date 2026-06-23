@@ -426,86 +426,86 @@ CONTAINS
       END IF
     
       !Budget descriptor
-      CALL pFile%ReadData(cAttributesDir,'Descriptor',ScalarAttrData=Header%cBudgetDescriptor,iStat=iStat)  
+      CALL pFile%ReadHDFData(cAttributesDir,'Descriptor',ScalarAttrData=Header%cBudgetDescriptor,iStat=iStat)  
       IF (iStat .EQ. -1) RETURN
 
       !Simulation time related data
       CALL pFile%GetTimeStepRelatedData(Header%NTimeSteps,Header%TimeStep)  
     
       !Areas
-      CALL pFile%ReadData(cAttributesDir,'NAreas',ScalarAttrData=Header%NAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL pFile%ReadHDFData(cAttributesDir,'NAreas',ScalarAttrData=Header%NAreas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
       IF (Header%NAreas .GT. 0) THEN
           CALL AllocArray(Header%Areas,Header%NAreas,ThisProcedure,iStat)                     ;  IF (iStat .EQ. -1) RETURN
           !Backward compatibility: Check if the Areas is written as a dadaset or attribute
           IF (pFile%DoesHDFObjectExist(cAttributesDir//'/Areas')) THEN
              !Areas exist as a dataset
-             CALL pFile%ReadData(cAttributesDir//'/Areas',Header%Areas,iStat=iStat)  
+             CALL pFile%ReadHDFData(cAttributesDir//'/Areas',Header%Areas,iStat=iStat)  
           ELSE
              !Areas exist as an attribute 
-             CALL pFile%ReadData(cAttributesDir,'Areas',ArrayAttrData=Header%Areas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+             CALL pFile%ReadHDFData(cAttributesDir,'Areas',ArrayAttrData=Header%Areas,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
           END IF
       END IF
     
       !Data for ASCII output
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%TitleLen',ScalarAttrData=Header%ASCIIOutput%TitleLen,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%NTitles',ScalarAttrData=Header%ASCIIOutput%NTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN   ;  NTitles = Header%ASCIIOutput%NTitles
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%TitleLen',ScalarAttrData=Header%ASCIIOutput%TitleLen,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%NTitles',ScalarAttrData=Header%ASCIIOutput%NTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN   ;  NTitles = Header%ASCIIOutput%NTitles
       ALLOCATE (Header%ASCIIOutput%cTitles(NTitles)        , &
                 Header%ASCIIOutput%lTitlePersist(NTitles)  )
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%cTitles',ArrayAttrData=Header%ASCIIOutput%cTitles,iStat=iStat)              ;  IF (iStat .EQ. -1) RETURN   
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%lTitlePersist',ArrayAttrData=Header%ASCIIOutput%lTitlePersist,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%cFormatSpec',ScalarAttrData=Header%ASCIIOutput%cFormatSpec,iStat=iStat)     ;  IF (iStat .EQ. -1) RETURN
-      CALL pFile%ReadData(cAttributesDir,'ASCIIOutput%NColumnHeaderLines',ScalarAttrData=NColumnHeaderLines,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  Header%ASCIIOutput%NColumnHeaderLines = NColumnHeaderLines
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%cTitles',ArrayAttrData=Header%ASCIIOutput%cTitles,iStat=iStat)              ;  IF (iStat .EQ. -1) RETURN   
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%lTitlePersist',ArrayAttrData=Header%ASCIIOutput%lTitlePersist,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%cFormatSpec',ScalarAttrData=Header%ASCIIOutput%cFormatSpec,iStat=iStat)     ;  IF (iStat .EQ. -1) RETURN
+      CALL pFile%ReadHDFData(cAttributesDir,'ASCIIOutput%NColumnHeaderLines',ScalarAttrData=NColumnHeaderLines,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  Header%ASCIIOutput%NColumnHeaderLines = NColumnHeaderLines
       
       !Location names
-      CALL pFile%ReadData(cAttributesDir,'nLocations',ScalarAttrData=Header%NLocations,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%cLocationNames(Header%NLocations))
+      CALL pFile%ReadHDFData(cAttributesDir,'nLocations',ScalarAttrData=Header%NLocations,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%cLocationNames(Header%NLocations))
       IF (lAttributesDirExist) THEN
-          CALL pFile%ReadData(cAttributesDir//'/cLocationNames',Header%cLocationNames,iStat=iStat)  
+          CALL pFile%ReadHDFData(cAttributesDir//'/cLocationNames',Header%cLocationNames,iStat=iStat)  
           IF (iStat .EQ. -1) RETURN
       ELSE
           DO indx=1,Header%NLocations
-              CALL pFile%ReadData(cAttributesDir,'cLocationName_'//TRIM(IntToText(indx)),ScalarAttrData=Header%cLocationNames(indx),iStat=iStat)  
+              CALL pFile%ReadHDFData(cAttributesDir,'cLocationName_'//TRIM(IntToText(indx)),ScalarAttrData=Header%cLocationNames(indx),iStat=iStat)  
               IF (iStat .EQ. -1) RETURN
           END DO
       END IF
       
       !Location data
-      CALL pFile%ReadData(cAttributesDir,'NLocationData',ScalarAttrData=NLocs,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%Locations(NLocs))
+      CALL pFile%ReadHDFData(cAttributesDir,'NLocationData',ScalarAttrData=NLocs,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%Locations(NLocs))
       DO indx=1,NLocs
         ASSOCIATE (pLocation => Header%Locations(indx))
         
           cLocation = 'LocationData'//TRIM(IntTotext(indx))//'%'
-          CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'NDataColumns',ScalarAttrData=NDataColumns,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  pLocation%NDataColumns = NDataColumns
+          CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'NDataColumns',ScalarAttrData=NDataColumns,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  pLocation%NDataColumns = NDataColumns
           ALLOCATE (pLocation%cFullColumnHeaders(NDataColumns+1)     , &
                     pLocation%iDataColumnTypes(NDataColumns)         , &
                     pLocation%iColWidth(NDataColumns+1)              )
-          CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'cFullColumnHeaders',ArrayAttrData=pLocation%cFullColumnHeaders,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-          CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'iDataColumnTypes',ArrayAttrData=pLocation%iDataColumnTypes,iStat=iStat)      ;  IF (iStat .EQ. -1) RETURN
-          CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'iColWidth',ArrayAttrData=pLocation%iColWidth,iStat=iStat)                    ;  IF (iStat .EQ. -1) RETURN
+          CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'cFullColumnHeaders',ArrayAttrData=pLocation%cFullColumnHeaders,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+          CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'iDataColumnTypes',ArrayAttrData=pLocation%iDataColumnTypes,iStat=iStat)      ;  IF (iStat .EQ. -1) RETURN
+          CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'iColWidth',ArrayAttrData=pLocation%iColWidth,iStat=iStat)                    ;  IF (iStat .EQ. -1) RETURN
           ALLOCATE (pLocation%cColumnHeaders(NDataColumns+1,NColumnHeaderLines) , &
                     pLocation%cColumnHeadersFormatSpec(NColumnHeaderLines)      )
           DO indx1=1,NColumnHeaderLines
-              CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'L'//TRIM(IntToText(indx1))//'_cColumnHeaders',ArrayAttrData=pLocation%cColumnHeaders(:,indx1),iStat=iStat)  
+              CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'L'//TRIM(IntToText(indx1))//'_cColumnHeaders',ArrayAttrData=pLocation%cColumnHeaders(:,indx1),iStat=iStat)  
               IF (iStat .EQ. -1) RETURN
           END DO 
-          CALL pFile%ReadData(cAttributesDir,TRIM(cLocation)//'cColumnHeadersFormatSpec',ArrayAttrData=pLocation%cColumnHeadersFormatSpec,iStat=iStat)  
+          CALL pFile%ReadHDFData(cAttributesDir,TRIM(cLocation)//'cColumnHeadersFormatSpec',ArrayAttrData=pLocation%cColumnHeadersFormatSpec,iStat=iStat)  
           IF (iStat .EQ. -1) RETURN              
           
         END ASSOCIATE         
       END DO
 
       !DSS output data
-      CALL pFile%ReadData(cAttributesDir,'DSSOutput%NPathNames',ScalarAttrData=iSize,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%DSSOutput%cPathNames(iSize))
+      CALL pFile%ReadHDFData(cAttributesDir,'DSSOutput%NPathNames',ScalarAttrData=iSize,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%DSSOutput%cPathNames(iSize))
       IF (lAttributesDirExist) THEN
-          CALL pFile%ReadData(cAttributesDir//'/DSSOutput%cPathNames',Header%DSSOutput%cPathNames,iStat=iStat)  
+          CALL pFile%ReadHDFData(cAttributesDir//'/DSSOutput%cPathNames',Header%DSSOutput%cPathNames,iStat=iStat)  
           IF (iStat .EQ. -1) RETURN
       ELSE
           DO indx=1,iSize
-              CALL pFile%ReadData(cAttributesDir,'DSSOutput%cPathNames'//TRIM(IntToText(indx)),ScalarAttrData=Header%DSSOutput%cPathNames(indx),iStat=iStat)  
+              CALL pFile%ReadHDFData(cAttributesDir,'DSSOutput%cPathNames'//TRIM(IntToText(indx)),ScalarAttrData=Header%DSSOutput%cPathNames(indx),iStat=iStat)  
               IF (iStat .EQ. -1) RETURN
           END DO
       END IF
-      CALL pFile%ReadData(cAttributesDir,'DSSOutput%NDataTypes',ScalarAttrData=iSize,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%DSSOutput%iDataTypes(iSize))
-      CALL pFile%ReadData(cAttributesDir,'DSSOutput%iDataTypes',ArrayAttrData=Header%DSSOutput%iDataTypes,iStat=iStat)  
+      CALL pFile%ReadHDFData(cAttributesDir,'DSSOutput%NDataTypes',ScalarAttrData=iSize,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN  ;  ALLOCATE (Header%DSSOutput%iDataTypes(iSize))
+      CALL pFile%ReadHDFData(cAttributesDir,'DSSOutput%iDataTypes',ArrayAttrData=Header%DSSOutput%iDataTypes,iStat=iStat)  
       
     END ASSOCIATE  
     

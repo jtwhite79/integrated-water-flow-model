@@ -1113,7 +1113,7 @@ CONTAINS
         END DO
         
         !If the rating table is problematic, warn the user
-        IF (AppStream%Nodes(iNode)%RatingTable%CheckGradientMonotonicity() .EQ. .FALSE.) THEN
+        IF (AppStream%Nodes(iNode)%RatingTable%CheckGradientMonotonicity() .EQV. .FALSE.) THEN
             MessageArray(1) = 'The gradient of the rating table at stream node '//TRIM(IntToText(iStrmNodeID))//' is not monotonicaly increasing or decreasing!'
             MessageArray(2) = 'This may lead to problems with the iterative solution!'
             IF (ASSOCIATED(AppStream%Logger)) THEN

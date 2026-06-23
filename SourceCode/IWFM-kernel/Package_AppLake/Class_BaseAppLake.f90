@@ -162,7 +162,7 @@ MODULE Class_BaseAppLake
   ! --- BUDGET RELATED DATA
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNLakeBudColumns = 15
-  CHARACTER(LEN=27),PARAMETER :: f_cBudgetColumnTitles(f_iNLakeBudColumns) = ['Beginning Storage (+)'       , &
+  CHARACTER(LEN=27),PARAMETER :: f_cBudgetColumnTitles(f_iNLakeBudColumns) = [CHARACTER(LEN=27) :: 'Beginning Storage (+)'       , &
                                                                               'Ending Storage (-)'          , &
                                                                               'Flow from Upstream Lake (+)' , &
                                                                               'Flow from Streams (+)'       , &
@@ -1185,7 +1185,7 @@ CONTAINS
     INTEGER           :: iCount,indxLocation,indxCol,indx,NLakes
     CHARACTER         :: UnitT*10,TextTime*17
     CHARACTER         :: Text1*12
-    CHARACTER(LEN=6)  :: CParts(f_iNLakeBudColumns) = ['VOLUME' , &
+    CHARACTER(LEN=6)  :: CParts(f_iNLakeBudColumns) = [CHARACTER(LEN=6) :: 'VOLUME' , &
                                                        'VOLUME' , &
                                                        'VOLUME' , &
                                                        'VOLUME' , &
@@ -1200,7 +1200,7 @@ CONTAINS
                                                        'VOLUME' , &
                                                        'VOLUME' , &
                                                        'ELEV'   ]
-    CHARACTER(LEN=17),PARAMETER :: FParts(f_iNLakeBudColumns) = ['BEGIN_STORAGE'      ,&
+    CHARACTER(LEN=17),PARAMETER :: FParts(f_iNLakeBudColumns) = [CHARACTER(LEN=17) :: 'BEGIN_STORAGE'      ,&
                                                                  'END_STORAGE'        ,&
                                                                  'FLOW_FRM_UPLAKE'    ,&    
                                                                  'FLOW_FRM_STRM'      ,&
@@ -1266,7 +1266,8 @@ CONTAINS
     END DO
    
     !Locations
-    ALLOCATE (Header%Locations(1)                                                             , &
+    ALLOCATE (Header%Locations(1))
+    ALLOCATE ( &
               Header%Locations(1)%cFullColumnHeaders(f_iNLakeBudColumns+1)                    , &
               Header%Locations(1)%iDataColumnTypes(f_iNLakeBudColumns)                        , &
               Header%Locations(1)%iColWidth(f_iNLakeBudColumns+1)                             , &
@@ -1295,9 +1296,9 @@ CONTAINS
       pLocation%iColWidth                             = [17,(12,indx=1,f_iNLakeBudColumns)]
       ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
-        pColumnHeaders(:,1) = (/'                 ','    Beginning','    Ending   ','  Flow from  ','  Flow from  ','  Flow from  ','      GW     ','             ','    Return   ','      Pond   ','             ','   Gain from ','     Lake    ','      Lake   ','             ','Lake Surface '/)
-        pColumnHeaders(:,2) = (/'      Time       ','     Storage ','    Storage  ','Upstream Lake','   Streams   ','   Bypasses  ','  Return Flow','     Runoff  ','     Flow    ','      Drain  ','Precipitation','  Groundwater','  Evaporation','     Outflow ',' Discrepancy ','  Elevation  '/)
-        pColumnHeaders(:,3) = (/      TextTime     ,'       (+)   ','      (-)    ','     (+)     ','     (+)     ','     (+)     ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','     (-)     ','       (-)   ','     (=)     ',          Text1/)
+        pColumnHeaders(:,1) = (/CHARACTER(LEN=100) :: '                 ','    Beginning','    Ending   ','  Flow from  ','  Flow from  ','  Flow from  ','      GW     ','             ','    Return   ','      Pond   ','             ','   Gain from ','     Lake    ','      Lake   ','             ','Lake Surface '/)
+        pColumnHeaders(:,2) = (/CHARACTER(LEN=100) :: '      Time       ','     Storage ','    Storage  ','Upstream Lake','   Streams   ','   Bypasses  ','  Return Flow','     Runoff  ','     Flow    ','      Drain  ','Precipitation','  Groundwater','  Evaporation','     Outflow ',' Discrepancy ','  Elevation  '/)
+        pColumnHeaders(:,3) = (/CHARACTER(LEN=100) ::       TextTime     ,'       (+)   ','      (-)    ','     (+)     ','     (+)     ','     (+)     ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','      (+)    ','     (-)     ','       (-)   ','     (=)     ',          Text1/)
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,*(A13))'
         pFormatSpecs(2)     = '(A17,*(A13))'

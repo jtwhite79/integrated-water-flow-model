@@ -721,7 +721,7 @@ CONTAINS
         
         !Read
         IF (iTimeCounter .EQ. 1) THEN
-            CALL Budget%InputFile%ReadData(cTime,iLoc,rTempValues,ErrorCode,iStat) 
+            CALL Budget%InputFile%ReadHDFData(cTime,iLoc,rTempValues,ErrorCode,iStat) 
             IF (ErrorCode .NE. 0) THEN
                 CALL Budget%InputFile%GetName(cFileName)
                 CALL Budget%Logger%SetLastMessage('Error in reading data from file '//cFileName//'!',f_iFatal,ThisProcedure)
@@ -1254,7 +1254,7 @@ CONTAINS
     ELSE
         WRITE (cTime,'(A)') rOutputBeginTime
     END IF
-    CALL Budget%InputFile%ReadData(cTime,iLocation,iCol,rReadValues,ErrorCode,iStat)
+    CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iCol,rReadValues,ErrorCode,iStat)
     IF (ErrorCode .NE. 0) THEN
         CALL Budget%InputFile%GetName(cFileName)
         CALL Budget%Logger%SetLastMessage('Error in reading data from file '//cFileName//'!',f_iFatal,ThisProcedure)
@@ -1262,13 +1262,13 @@ CONTAINS
         RETURN
     END IF
     IF (lLWUBudget) THEN
-        CALL Budget%InputFile%ReadData(cTime,iLocation,iAgSupReqCol,rRead_AgSupReq,ErrorCode,iStat)  ;  IF(iStat .EQ. -1) RETURN
-        CALL Budget%InputFile%ReadData(cTime,iLocation,iAgShortCol,rRead_AgShort,ErrorCode,iStat)    ;  IF(iStat .EQ. -1) RETURN
+        CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iAgSupReqCol,rRead_AgSupReq,ErrorCode,iStat)  ;  IF(iStat .EQ. -1) RETURN
+        CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iAgShortCol,rRead_AgShort,ErrorCode,iStat)    ;  IF(iStat .EQ. -1) RETURN
         IF (iCol .EQ. iAgShortCol) THEN
-            CALL Budget%InputFile%ReadData(cTime,iLocation,iAgPumpCol,rRead_AgPump,ErrorCode,iStat)                ;  IF(iStat .EQ. -1) RETURN
-            CALL Budget%InputFile%ReadData(cTime,iLocation,iAgDivCol,rRead_AgDiv,ErrorCode,iStat)                  ;  IF(iStat .EQ. -1) RETURN
+            CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iAgPumpCol,rRead_AgPump,ErrorCode,iStat)                ;  IF(iStat .EQ. -1) RETURN
+            CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iAgDivCol,rRead_AgDiv,ErrorCode,iStat)                  ;  IF(iStat .EQ. -1) RETURN
             IF (iAgOtherInflowCol .GT. 0) THEN
-                CALL Budget%InputFile%ReadData(cTime,iLocation,iAgOtherInflowCol,rRead_AgOtherInflow,ErrorCode,iStat)
+                CALL Budget%InputFile%ReadHDFData(cTime,iLocation,iAgOtherInflowCol,rRead_AgOtherInflow,ErrorCode,iStat)
                 IF(iStat .EQ. -1) RETURN
             ELSE
                 rRead_AgOtherInflow = 0.0
@@ -1513,7 +1513,7 @@ CONTAINS
     ELSE
         WRITE (cTime,'(A)') rOutputBeginTime
     END IF
-    CALL Budget%InputFile%ReadData(cTime,iLocation,rTempValues,ErrorCode,iStat)  
+    CALL Budget%InputFile%ReadHDFData(cTime,iLocation,rTempValues,ErrorCode,iStat)  
     IF (ErrorCode .NE. 0) THEN
         CALL Budget%InputFile%GetName(cFileName)
         CALL Budget%Logger%SetLastMessage('Error in reading data from file '//cFileName//'!',f_iFatal,ThisProcedure)

@@ -142,56 +142,56 @@ CONTAINS
     END IF
     
     !Software version that created the raw Z-Budget data
-    CALL InFile%ReadData(f_cAttributesDir,'Software_Version',ScalarAttrData=Header%cSoftwareVersion,iStat=iStat)  
+    CALL InFile%ReadHDFData(f_cAttributesDir,'Software_Version',ScalarAttrData=Header%cSoftwareVersion,iStat=iStat)  
     IF (iStat .EQ. -1) RETURN
     
     !Z-Budget file descriptor
-    CALL InFile%ReadData(f_cAttributesDir,'Descriptor',ScalarAttrData=Header%cDescriptor,iStat=iStat)  
+    CALL InFile%ReadHDFData(f_cAttributesDir,'Descriptor',ScalarAttrData=Header%cDescriptor,iStat=iStat)  
     IF (iStat .EQ. -1) RETURN
     
     !Flags
-    CALL InFile%ReadData(f_cAttributesDir,'lVertFlows_DefinedAtNode',ScalarAttrData=Header%lVertFlows_DefinedAtNode,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'lFaceFlows_Defined',ScalarAttrData=Header%lFaceFlows_Defined,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'lStorages_Defined',ScalarAttrData=Header%lStorages_Defined,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'lComputeError',ScalarAttrData=Header%lComputeError,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'lVertFlows_DefinedAtNode',ScalarAttrData=Header%lVertFlows_DefinedAtNode,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'lFaceFlows_Defined',ScalarAttrData=Header%lFaceFlows_Defined,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'lStorages_Defined',ScalarAttrData=Header%lStorages_Defined,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'lComputeError',ScalarAttrData=Header%lComputeError,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     
     !Column numbers for mass balance error computation
     IF (Header%lComputeError) THEN
-        CALL InFile%ReadData(f_cAttributesDir,'NErrorInCols',ScalarAttrData=NErrorInCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-        CALL InFile%ReadData(f_cAttributesDir,'NErrorOutCols',ScalarAttrData=NErrorOutCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL InFile%ReadHDFData(f_cAttributesDir,'NErrorInCols',ScalarAttrData=NErrorInCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL InFile%ReadHDFData(f_cAttributesDir,'NErrorOutCols',ScalarAttrData=NErrorOutCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
         ALLOCATE (Header%iErrorInCols(NErrorInCols) , Header%iErrorOutCols(NErrorOutCols))
-        CALL InFile%ReadData(f_cAttributesDir//'/ErrorInCols',Header%iErrorInCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-        CALL InFile%ReadData(f_cAttributesDir//'/ErrorOutCols',Header%iErrorOutCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL InFile%ReadHDFData(f_cAttributesDir//'/ErrorInCols',Header%iErrorInCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL InFile%ReadHDFData(f_cAttributesDir//'/ErrorOutCols',Header%iErrorOutCols,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     END IF
     
     !ZBudget data columns related information
-    CALL InFile%ReadData(f_cAttributesDir,'NData',ScalarAttrData=Header%iNData,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'NData',ScalarAttrData=Header%iNData,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     ALLOCATE (Header%iDataTypes(Header%iNData)                                               , &
               Header%cFullDataNames(Header%iNData)                                           , &
               Header%cDataHDFPaths(Header%iNData)                                            , &
               Header%iNDataElems(Header%iNData,SystemData%NLayers)                           , &
               Header%iElemDataColumns(SystemData%NElements,Header%iNData,SystemData%NLayers) )
-    CALL InFile%ReadData(f_cAttributesDir//'/DataTypes',Header%iDataTypes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir//'/FullDataNames',Header%cFullDataNames,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir//'/DataHDFPaths',Header%cDataHDFPaths,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir//'/DataTypes',Header%iDataTypes,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir//'/FullDataNames',Header%cFullDataNames,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir//'/DataHDFPaths',Header%cDataHDFPaths,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     DO indxLayer=1,SystemData%NLayers
-        CALL InFile%ReadData(f_cAttributesDir//'/Layer'//TRIM(IntToText(indxLayer))//'_ElemDataColumns',Header%iElemDataColumns(:,:,indxLayer),iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+        CALL InFile%ReadHDFData(f_cAttributesDir//'/Layer'//TRIM(IntToText(indxLayer))//'_ElemDataColumns',Header%iElemDataColumns(:,:,indxLayer),iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
         DO indxData=1,Header%iNData
             Header%iNDataElems(indxData,indxLayer) = COUNT(Header%iElemDataColumns(:,indxData,indxLayer) .NE. 0)
         END DO
     END DO
         
     !ASCII output data
-    CALL InFile%ReadData(f_cAttributesDir,'ASCIIOutput%iLenTitles',ScalarAttrData=Header%ASCIIOutput%iLenTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'ASCIIOutput%NTitles',ScalarAttrData=Header%ASCIIOutput%iNTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'ASCIIOutput%LenColumnTitles',ScalarAttrData=Header%ASCIIOutput%iLenColumnTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'ASCIIOutput%iLenTitles',ScalarAttrData=Header%ASCIIOutput%iLenTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'ASCIIOutput%NTitles',ScalarAttrData=Header%ASCIIOutput%iNTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'ASCIIOutput%LenColumnTitles',ScalarAttrData=Header%ASCIIOutput%iLenColumnTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     ALLOCATE (Header%ASCIIOutput%cColumnTitles(Header%ASCIIOutput%iNTitles))
-    CALL InFile%ReadData(f_cAttributesDir,'ASCIIOutput%ColumnTitles',ArrayAttrData=Header%ASCIIOutput%cColumnTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
-    CALL InFile%ReadData(f_cAttributesDir,'ASCIIOutput%NumberFormat',ScalarAttrData=Header%ASCIIOutput%cNumberFormat,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'ASCIIOutput%ColumnTitles',ArrayAttrData=Header%ASCIIOutput%cColumnTitles,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
+    CALL InFile%ReadHDFData(f_cAttributesDir,'ASCIIOutput%NumberFormat',ScalarAttrData=Header%ASCIIOutput%cNumberFormat,iStat=iStat)  ;  IF (iStat .EQ. -1) RETURN
     
     !DSS pathname F parts
     ALLOCATE (Header%cDSSFParts(Header%iNData))
-    CALL InFile%ReadData(f_cAttributesDir,'DSSFParts',ArrayAttrData=Header%cDSSFParts,iStat=iStat)  
+    CALL InFile%ReadHDFData(f_cAttributesDir,'DSSFParts',ArrayAttrData=Header%cDSSFParts,iStat=iStat)  
     
   END SUBROUTINE ReadFromFile
   

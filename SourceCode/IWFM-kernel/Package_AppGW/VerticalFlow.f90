@@ -110,8 +110,8 @@ CONTAINS
     !Local variables
     CHARACTER(LEN=ModNameLen+22) :: ThisProcedure = ModName // 'VerticalFlowOutput_New'
     CHARACTER                    :: Text*20,FormatSpec*500,DataUnit(1)*10,DataType(1)*10,         &
-                                    CPart(1)*32,FPart(1)*32,Header(3,1+(NLayers-1)*NRegions)*50,  &
-                                    HeaderFormat(3)*500,DummyCharArray((NLayers-1)*NRegions)*32,  &
+                                    CPart(1)*32,FPart(1)*32,Header(3,1+(NLayers-1)*(NRegions))*50,  &
+                                    HeaderFormat(3)*500,DummyCharArray((NLayers-1)*(NRegions))*32,  &
                                     WorkArray(3)*3000,TitleLines(1)*3000
     INTEGER                      :: indx,indxRegion,indxLayer,NColumnsOfData,NRowsOfData,I,J
     LOGICAL                      :: OverwriteNColumnsOfData,PrintColumnNo

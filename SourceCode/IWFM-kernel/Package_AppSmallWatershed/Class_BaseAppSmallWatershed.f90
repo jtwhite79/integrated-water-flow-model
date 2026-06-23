@@ -238,7 +238,7 @@ MODULE Class_BaseAppSmallWatershed
   ! --- BUDGET RELATED DATA
   ! -------------------------------------------------------------
   INTEGER,PARAMETER           :: f_iNBudgetCols = 18
-  CHARACTER(LEN=31),PARAMETER :: f_cBudgetColumnTitles(f_iNBudgetCols) = ['Precipitation'                   , &
+  CHARACTER(LEN=31),PARAMETER :: f_cBudgetColumnTitles(f_iNBudgetCols) = [CHARACTER(LEN=31) :: 'Precipitation'                   , &
                                                                           'Runoff'                          , &
                                                                           'Root Zone Beginning Storage (+)' , &
                                                                           'Infiltration (+)'                , &
@@ -347,7 +347,7 @@ CONTAINS
                                    NColumns           = f_iNBudgetCols
     INTEGER                     :: iCount,indxLocation,indxCol,indx,iNSWShed,I
     CHARACTER                   :: UnitT*10,TextTime*17,cVersionFull*250
-    CHARACTER(LEN=15),PARAMETER :: FParts(NColumns) = ['PRECIP'         , &
+    CHARACTER(LEN=15),PARAMETER :: FParts(NColumns) = [CHARACTER(LEN=15) :: 'PRECIP'         , &
                                                        'RUNOFF'         , & 
                                                        'RZ_BEGIN_STOR'  , & 
                                                        'INFILTR'        , &
@@ -428,7 +428,8 @@ CONTAINS
     END DO
     
     !Locations
-    ALLOCATE (Header%Locations(1)                                                          , &
+    ALLOCATE (Header%Locations(1))
+    ALLOCATE ( &
               Header%Locations(1)%cFullColumnHeaders(NColumns+1)                           , &
               Header%Locations(1)%iDataColumnTypes(NColumns)                               , &
               Header%Locations(1)%iColWidth(NColumns+1)                                    , &
@@ -459,9 +460,9 @@ CONTAINS
       pLocation%iColWidth              = [17,(15,I=1,NColumns)]
       ASSOCIATE (pColumnHeaders => pLocation%cColumnHeaders           , &
                  pFormatSpecs   => pLocation%cColumnHeadersFormatSpec )
-        pColumnHeaders(:,1) = (/'                 ','               ','               ','     Beginning ','               ','         Actual','               ','        Ending ','               ','     Beginning ','               ','         Base  ','       GW      ','       Ending  ','               ','  Total Surface','    Percolation','     Net Stream','      Total GW '/)
-        pColumnHeaders(:,2) = (/'      Time       ','  Precipitation','         Runoff','      Storage  ','   Infiltration','           ET  ','    Percolation','        Storage','    Discrepancy','      Storage  ','     Recharge  ','         Flow  ','   Return Flow ','       Storage ','    Discrepancy','     Outflow   ','       to GW   ','       Inflow  ','       Inflow  '/)
-        pColumnHeaders(:,3) = (/      TextTime     ,'               ','               ','        (+)    ','        (+)    ','           (-) ','       (-)     ','          (-)  ','        (=)    ','        (+)    ','        (+)    ','         (-)   ','       (-)     ','         (-)   ','        (=)    ','       (+)     ','        (-)    ','         (=)   ','               '/)
+        pColumnHeaders(:,1) = (/CHARACTER(LEN=100) :: '                 ','               ','               ','     Beginning ','               ','         Actual','               ','        Ending ','               ','     Beginning ','               ','         Base  ','       GW      ','       Ending  ','               ','  Total Surface','    Percolation','     Net Stream','      Total GW '/)
+        pColumnHeaders(:,2) = (/CHARACTER(LEN=100) :: '      Time       ','  Precipitation','         Runoff','      Storage  ','   Infiltration','           ET  ','    Percolation','        Storage','    Discrepancy','      Storage  ','     Recharge  ','         Flow  ','   Return Flow ','       Storage ','    Discrepancy','     Outflow   ','       to GW   ','       Inflow  ','       Inflow  '/)
+        pColumnHeaders(:,3) = (/CHARACTER(LEN=100) ::       TextTime     ,'               ','               ','        (+)    ','        (+)    ','           (-) ','       (-)     ','          (-)  ','        (=)    ','        (+)    ','        (+)    ','         (-)   ','       (-)     ','         (-)   ','        (=)    ','       (+)     ','        (-)    ','         (=)   ','               '/)
         pColumnHeaders(:,4) = ''
         pFormatSpecs(1)     = '(A17,8A15,3X,6A15,3X,3A15,3X,1A15)'
         pFormatSpecs(2)     = '(A17,8A15,3X,6A15,3X,3A15,3X,1A15)'
@@ -1463,7 +1464,7 @@ CONTAINS
                pSWSheds(indxSWShed)%BaseFlowNodes(iCount)%Layer = iBaseFlowLayer
                pSWSheds(indxSWShed)%BaseFlowNodes(iCount)%Frac  = 1d0/QSUM
                !Make sure that the node is active
-               IF (Stratigraphy%ActiveNode(iBaseFlowNode,iBaseFlowLayer) .EQ. .FALSE.) THEN
+               IF (Stratigraphy%ActiveNode(iBaseFlowNode,iBaseFlowLayer) .EQV. .FALSE.) THEN
                    MessageArray(1) = 'GW node '//TRIM(IntToText(iGWNodeIDs_SWShed(indx)))//' that receives baseflow from '
                    MessageArray(2) = 'small watershed '//TRIM(IntToText(iSWShedID))      //  &
                                      ' at layer '//TRIM(IntToText(iBaseFlowLayer))       //  &

@@ -49,7 +49,7 @@ MODULE Package_Misc
                                  f_iUnsatZoneComp = 5  , &
                                  f_iSWShedComp    = 6
   INTEGER,PARAMETER,PRIVATE   :: f_iNMaxComps     = 6  
-  CHARACTER(LEN=16),PARAMETER :: f_cCompNames(f_iNMaxComps) = ["STREAM" , "LAKE" , "GROUNDWATER" , "ROOT ZONE" , "UNSATURATED ZONE" , "SMALL WATERSHEDS"]
+  CHARACTER(LEN=16),PARAMETER :: f_cCompNames(f_iNMaxComps) = [CHARACTER(LEN=16) :: "STREAM" , "LAKE" , "GROUNDWATER" , "ROOT ZONE" , "UNSATURATED ZONE" , "SMALL WATERSHEDS"]
   
   
   ! -------------------------------------------------------------

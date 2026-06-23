@@ -957,7 +957,7 @@ CONTAINS
       ! DSS: uses separate Init overload with pathnames
       BLOCK
         INTEGER :: iNodeIDs_Local(NNodes), iCnt, iLyr, iNd
-        CHARACTER(LEN=80) :: cPathNames(NNodes*NLayers)
+        CHARACTER(LEN=80) :: cPathNames(NNodes*(NLayers))
         CALL This%AppGrid%GetNodeIDs(iNodeIDs_Local)
         SELECT CASE (This%iDataType)
           CASE (f_iDataType_HEAD)

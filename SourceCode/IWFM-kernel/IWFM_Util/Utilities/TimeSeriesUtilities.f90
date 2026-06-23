@@ -103,7 +103,7 @@ MODULE TimeSeriesUtilities
   ! --- PARAMETERS
   ! -------------------------------------------------------------
   INTEGER,PARAMETER :: f_iRecognizedIntervals_InMinutes(20) = [1,2,3,4,5,10,15,20,30,60,120,180,240,360,480,720,1440,10080,43200,525600]
-  CHARACTER(LEN=6),PARAMETER :: f_cRecognizedIntervals(20) = ['1MIN  ' , &
+  CHARACTER(LEN=6),PARAMETER :: f_cRecognizedIntervals(20) = [CHARACTER(LEN=6) :: '1MIN  ' , &
                                                               '2MIN  ' , &
                                                               '3MIN  ' , &
                                                               '4MIN  ' , &
@@ -502,7 +502,7 @@ CONTAINS
     CHARACTER(LEN=11)  :: Date
 
     !Local variables
-    CHARACTER(LEN=3),DIMENSION(12),PARAMETER::Months=(/'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'/)
+    CHARACTER(LEN=3),DIMENSION(12),PARAMETER::Months=(/CHARACTER(LEN=3) :: 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'/)
 
     Date = ''
     IF (iDay .LT. 10) THEN
@@ -522,7 +522,7 @@ CONTAINS
     CHARACTER(LEN=11)                            :: Date
 
     !Local variables
-    CHARACTER(LEN=3),DIMENSION(12),PARAMETER :: f_cMonths=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    CHARACTER(LEN=3),DIMENSION(12),PARAMETER :: f_cMonths=[CHARACTER(LEN=3) :: 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     INTEGER                                  :: iDay,iMonth,iYear
 
     iDay   = ExtractDay(TimeStamp)

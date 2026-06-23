@@ -1,0 +1,1 @@
+mamba run -n iwfm-build cmake --build build -j8

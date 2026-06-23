@@ -488,7 +488,7 @@ CONTAINS
     cColumnHeaders_Work(1)        = 'Time'
     cColumnHeaders_Work(2:iCount) = ZBudget%Header%cFullDataNames
     IF (lAdjZoneFlowsDefined) THEN
-        cColumnHeaders_Work(iCount+1:iCount+2) = ['Inflow from adjacent zones (+)','Outflow to adjacent zones (-)']
+        cColumnHeaders_Work(iCount+1:iCount+2) = [CHARACTER(LEN=f_iColumnHeaderLen) :: 'Inflow from adjacent zones (+)','Outflow to adjacent zones (-)']
         iCount                                 = iCount + 2
     END IF
     IF (ZBudget%Header%lComputeError) THEN
@@ -1409,25 +1409,25 @@ CONTAINS
 
                 !Ag supply requirement
                 iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,pLWUGroup%iAgSupplyReqDataIndex,indxLayer)
-                CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,pLWUGroup%rAgSupplyReqRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+                CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,pLWUGroup%rAgSupplyReqRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
 
                 !Ag pumping
                 iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,pLWUGroup%iAgPumpDataIndex,indxLayer)
-                CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,pLWUGroup%rAgPumpRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+                CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,pLWUGroup%rAgPumpRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
                 
                 !Ag diversion
                 iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,pLWUGroup%iAgDiverDataIndex,indxLayer)
-                CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,pLWUGroup%rAgDiverRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+                CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,pLWUGroup%rAgDiverRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
                 
                 !Ag surface inflows from upstream elements
                 IF (pLWUGroup%iAgOtherInflowDataIndex .GT. 0) THEN
                     iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,pLWUGroup%iAgOtherInflowDataIndex,indxLayer)
-                    CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,pLWUGroup%rAgOtherInflowRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+                    CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,pLWUGroup%rAgOtherInflowRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
                 END IF
                 
                 !Ag short
                 iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,pLWUGroup%iAgShortDataIndex,indxLayer)
-                CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,pLWUGroup%rAgShortRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+                CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,pLWUGroup%rAgShortRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
             END ASSOCIATE
         END DO
         
@@ -1448,7 +1448,7 @@ CONTAINS
             
             !Read data
             iDataset = DatasetIndex(f_iElemDataType,NLayers,lFaceFlows_Defined,iNDataColumns,indxData,indxLayer)
-            CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,FlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+            CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,FlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
             
             !Aggregate
             DO indxZone=1,iNPrintZones
@@ -1595,7 +1595,7 @@ CONTAINS
       
       !Read vertical flows
       iDataset = DatasetIndex(f_iVerticalFlowType,NLayers,lFaceFlows_Defined,iNDataColumns,iDummyDataIndex,iLayer)
-      CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,VertFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,VertFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
       
       !Process vertical flows
       DO indxElem=1,ZBudget%SystemData%NElements
@@ -1657,7 +1657,7 @@ CONTAINS
       
       !Read vertical flows
       iDataset = DatasetIndex(f_iVerticalFlowType,NLayers,lFaceFlows_Defined,iNDataColumns,iDummyDataIndex,iLayer)
-      CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,VertFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,VertFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
       
       !Process vertical flows
       DO indxElem=1,ZBudget%SystemData%NElements
@@ -1719,7 +1719,7 @@ CONTAINS
       
       !Read face flows
       iDataset = DatasetIndex(f_iFaceFlowType,NLayers,lFaceFlows_Defined,iNDataColumns,iDummyDataIndex,iLayer)
-      CALL ZBudget%File%ReadData(cBeginDateAndTime,iDataset,FaceFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL ZBudget%File%ReadHDFData(cBeginDateAndTime,iDataset,FaceFlowsRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
       
       !Aggregate face flows
       DO indxZone=1,iNPrintZones
@@ -1780,7 +1780,7 @@ CONTAINS
       !Local variables
       INTEGER            :: iDataset,ErrorCode,NTimeSteps,iZone,indxZone
       REAL(8)            :: StorageRead(ZBudget%SystemData%NElements,1)
-      CHARACTER          :: cStorageDateAndTime*f_iTimeStampLength
+      CHARACTER          :: cStorageDateAndTime*(f_iTimeStampLength)
       TYPE(TimeStepType) :: TimeStep
       
       !Go to the last time of the interval
@@ -1789,7 +1789,7 @@ CONTAINS
       
       !Read storages at the end of period
       iDataset = DatasetIndex(f_iStorageType,NLayers,lFaceFlows_Defined,iNDataColumns,iDummyDataIndex,iLayer)
-      CALL ZBudget%File%ReadData(cStorageDateAndTime,iDataset,StorageRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
+      CALL ZBudget%File%ReadHDFData(cStorageDateAndTime,iDataset,StorageRead,ErrorCode,iStat)  ;  IF (iStat .EQ. -1) RETURN
       
       !Accumulate storages for the zone
       DO indxZone=1,iNPrintZones

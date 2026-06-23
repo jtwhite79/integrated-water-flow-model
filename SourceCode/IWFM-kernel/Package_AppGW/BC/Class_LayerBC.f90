@@ -172,7 +172,7 @@ MODULE Class_LayerBC
                                  f_iSpHeadBCID         = 2 , &  !Specified head
                                  f_iGHBCID             = 3 , &  !General head boundary
                                  f_iConstrainedGHBCID  = 4      !Constrained general head boundary
-  CHARACTER(LEN=29),PARAMETER :: f_cBCDescriptor(4) = ['specified flow b.c.'          , &
+  CHARACTER(LEN=29),PARAMETER :: f_cBCDescriptor(4) = [CHARACTER(LEN=29) :: 'specified flow b.c.'          , &
                                                        'specified head b.c.'          , &
                                                        'general head b.c.'            , &
                                                        'constrained general head b.c.']

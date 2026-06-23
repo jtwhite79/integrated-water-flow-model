@@ -1406,7 +1406,7 @@ CONTAINS
     iStat = 0
     
     !Return if ag lands are not simulated
-    IF (.NOT.ALLOCATED(AgLand%AgData%SMax) .EQ. 0) RETURN
+    IF (.NOT.ALLOCATED(AgLand%AgData%SMax)) RETURN
     
     !Initialize
     RootDepth = AgLand%AvgCrop%RootDepth
@@ -1446,9 +1446,9 @@ CONTAINS
     !Local variables
     INTEGER   :: NColumnsOfData,NRowsOfData,indx,j,indxRegion,indxType,iCol
     CHARACTER :: Text*20,FormatSpec*100,DataUnit(4)*10,DataType(4)*10,CPart(4)*32,FPart(4)*32,TitleLines(1)*350, &
-                 Header(3,4*NRegions+1)*23,WorkArray(2)*37,cColUnit(4)*23,HeaderFormat(4)*500
+                 Header(3,4*(NRegions)+1)*23,WorkArray(2)*37,cColUnit(4)*23,HeaderFormat(4)*500
     LOGICAL   :: OverwriteNColumnsOfData,PrintColumnNo
-    CHARACTER(LEN=23),PARAMETER :: cColTitle(4) = ['        Root Zone Depth' , '       Min. Soil Moist.' , '   Irrig. Target Moist.' , 'Crop Evapotranspiration']
+    CHARACTER(LEN=23),PARAMETER :: cColTitle(4) = [CHARACTER(LEN=23) :: '        Root Zone Depth' , '       Min. Soil Moist.' , '   Irrig. Target Moist.' , 'Crop Evapotranspiration']
     
     !Initialize
     iStat = 0

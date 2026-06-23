@@ -48,7 +48,7 @@ MODULE Budget_Parameters
                        f_iDSSDataUnitLen      = 8
   INTEGER,PARAMETER :: f_iPER_CUM         = 1   , &
                        f_iPER_AVER        = 2
-  CHARACTER(LEN=8),PARAMETER :: f_cDataTypes(2)       = ['PER-CUM ','PER-AVER']
+  CHARACTER(LEN=8),PARAMETER :: f_cDataTypes(2)       = [CHARACTER(LEN=8) :: 'PER-CUM ','PER-AVER']
   CHARACTER(LEN=9),PARAMETER :: f_cLocationNameMarker = '@LOCNAME@'
   CHARACTER(LEN=6),PARAMETER :: f_cAreaMarker         = '@AREA@'
   CHARACTER(LEN=8),PARAMETER :: f_cLengthUnitMarker   = '@UNITLT@'

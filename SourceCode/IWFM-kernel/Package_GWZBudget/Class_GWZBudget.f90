@@ -213,7 +213,7 @@ MODULE Class_GWZBudget
   ! -------------------------------------------------------------
   ! --- FLOW NAMES FOR USE IN GW ZONE BUDGET OUTPUT
   ! -------------------------------------------------------------
-  CHARACTER(LEN=27),PARAMETER :: f_cFlowNames(f_iNFlowID) = ['GW Storage                 '  , &              
+  CHARACTER(LEN=27),PARAMETER :: f_cFlowNames(f_iNFlowID) = [CHARACTER(LEN=27) :: 'GW Storage                 '  , &              
                                                              'Streams                    '  , &      
                                                              'Tile Drains                '  , &      
                                                              'Subsurface Irrigation      '  , &      
@@ -237,7 +237,7 @@ MODULE Class_GWZBudget
   ! -------------------------------------------------------------
   ! --- FLOW NAMES FOR USE IN DSS OUTPUT
   ! -------------------------------------------------------------
-  CHARACTER(LEN=20),PARAMETER :: f_cDSSFParts(f_iNFlowID) = ['STORAGE             ' , &              
+  CHARACTER(LEN=20),PARAMETER :: f_cDSSFParts(f_iNFlowID) = [CHARACTER(LEN=20) :: 'STORAGE             ' , &              
                                                              'STREAMS             ' , &      
                                                              'TILE_DRAINS         ' , &      
                                                              'SUB_IRRIG           ' , &      

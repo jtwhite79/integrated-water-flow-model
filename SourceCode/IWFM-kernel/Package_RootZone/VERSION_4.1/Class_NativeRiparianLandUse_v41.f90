@@ -78,7 +78,7 @@ MODULE Class_NativeRiparianLandUse_v41
   ! -------------------------------------------------------------
   INTEGER,PARAMETER          :: f_iNNative                  = 1 , &
                                 f_iNRiparian                = 1 
-  CHARACTER(LEN=f_iLenCropCode),PARAMETER :: f_cVegCodes(2)  = ['NV','RV'] 
+  CHARACTER(LEN=f_iLenCropCode),PARAMETER :: f_cVegCodes(2)  = [CHARACTER(LEN=f_iLenCropCode) :: 'NV','RV'] 
   
   
   ! -------------------------------------------------------------

@@ -393,10 +393,10 @@ CONTAINS
                     RETURN
                 END IF
                 IF (iHydLayer .NE. 0) THEN
-                    IF (ALL(Stratigraphy%ActiveNode(Nodes,iHydLayer) .EQ. .FALSE.))  &
+                    IF (ALL(Stratigraphy%ActiveNode(Nodes,iHydLayer) .EQV. .FALSE.))  &
                         CALL Logger%LogMessage(TRIM(cHydDescriptorCapital)//' hydrograph ID '//TRIM(IntToText(ID))//' is located in an inactive layer!',f_iInfo,ThisProcedure)
                 ELSE
-                    IF (ALL(Stratigraphy%ActiveNode(Nodes,:) .EQ. .FALSE.))  &
+                    IF (ALL(Stratigraphy%ActiveNode(Nodes,:) .EQV. .FALSE.))  &
                         CALL Logger%LogMessage(TRIM(cHydDescriptorCapital)//' hydrograph ID '//TRIM(IntToText(ID))//' is located in an inactive layer!',f_iInfo,ThisProcedure)
                 END IF
                 iSize           = SIZE(Nodes)
@@ -418,7 +418,7 @@ CONTAINS
                     IF (.NOT. Stratigraphy%ActiveNode(iNodeIndex,iHydLayer))  &
                         CALL Logger%LogMessage('Groundwater node '//TRIM(IntToText(iHydNode))//' at layer '//TRIM(IntToText(iHydLayer))//' for '//TRIM(cHydDescriptor)//' hydrograph ID '//TRIM(IntToText(ID))//' is inactive!',f_iInfo,ThisProcedure)
                 ELSE
-                    IF (ALL(Stratigraphy%ActiveNode(iNodeIndex,:) .EQ. .FALSE.))  &
+                    IF (ALL(Stratigraphy%ActiveNode(iNodeIndex,:) .EQV. .FALSE.))  &
                         CALL Logger%LogMessage('There are no active layers at node '//TRIM(IntToText(iHydNode))//' for '//TRIM(cHydDescriptor)//' hydrograph ID '//TRIM(IntToText(ID))//'!',f_iInfo,ThisProcedure)
                 END IF
                 aNodeHyd%cName    = ALine

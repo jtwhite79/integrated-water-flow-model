@@ -154,7 +154,8 @@ CONTAINS
     
     !Local variables
     INTEGER   :: indxNode,NStrmNodes,NNodes,NElements,NVertex,Nodes(4),indxElem,indx,indxVar,iDimVar
-    CHARACTER :: Header(3)*3000,Text*3000,cZoneName*f_iTimeStampLength
+    CHARACTER(LEN=3000)               :: Header(3),Text
+    CHARACTER(LEN=f_iTimeStampLength) :: cZoneName
     
     !Initialize
     NNodes     = AppGrid%NNodes
@@ -214,7 +215,8 @@ CONTAINS
     TYPE(TimeStepType),INTENT(IN) :: TimeStep
     
     !Local variables
-    CHARACTER :: Text*3000,cZoneName*f_iTimeStampLength
+    CHARACTER(LEN=3000)               :: Text
+    CHARACTER(LEN=f_iTimeStampLength) :: cZoneName
     INTEGER   :: indx,indx1
     REAL(8)   :: rValuesTemp(SIZE(rValues,DIM=1)*SIZE(rValues,DIM=2))
     

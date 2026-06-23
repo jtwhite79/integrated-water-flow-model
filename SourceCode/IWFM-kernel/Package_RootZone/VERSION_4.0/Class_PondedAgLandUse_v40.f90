@@ -94,7 +94,7 @@ MODULE Class_PondedAgLandUse_v40
                                 f_iindxRefuge_Seasonal      = 4 , &
                                 f_iindxRefuge_Permanent     = 5 
   INTEGER,PARAMETER          :: f_iLenCropCode              = 9
-  CHARACTER(LEN=f_iLenCropCode),PARAMETER :: f_cCropCodes(f_iNPondedCrops)  = ['RICE_FL','RICE_NFL','RICE_NDC','REFUGE_SL','REFUGE_PR'] 
+  CHARACTER(LEN=f_iLenCropCode),PARAMETER :: f_cCropCodes(f_iNPondedCrops)  = [CHARACTER(LEN=f_iLenCropCode) :: 'RICE_FL','RICE_NFL','RICE_NDC','REFUGE_SL','REFUGE_PR'] 
                        
                        
   ! -------------------------------------------------------------
@@ -201,7 +201,7 @@ CONTAINS
 
     !Local variables
     CHARACTER(LEN=ModNameLen+3)                      :: ThisProcedure = ModName // 'New'
-    CHARACTER                                        :: ALine*1000,cBudgetCropCode*f_iLenCropCode
+    CHARACTER                                        :: ALine*1000,cBudgetCropCode*(f_iLenCropCode)
     CHARACTER(LEN=f_iMaxLocationNameLen),ALLOCATABLE :: cRegionNames(:)
     CHARACTER(LEN=f_iMaxLocationNameLen)             :: SubRegionNames(AppGrid%NSubregions+1)
     REAL(8)                                          :: FACT,Factor(1),SubRegionArea(AppGrid%NSubregions+1)

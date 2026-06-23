@@ -264,7 +264,7 @@ CONTAINS
         
         !Normalize vertical pumping distribution factors; make sure no pumping is assigned to a layer with all inactive nodes
         DO indxLayer=1,NLayers
-            IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),indxLayer) .EQ. .FALSE.))   &
+            IF (ALL(Stratigraphy%ActiveNode(Vertex(1:NVertex),indxLayer) .EQV. .FALSE.))   &
                 ElemPump(indxSink)%rLayerFactor(indxLayer) = 0.0
         END DO
         CALL NormalizeArray(ElemPump(indxSink)%rLayerFactor)

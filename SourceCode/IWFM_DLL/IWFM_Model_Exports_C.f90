@@ -128,7 +128,7 @@ CONTAINS
 
     !Local variables
     INTEGER             :: indx,iNewID
-    CHARACTER           :: cPPFileName_F*LenPPFileName,cSimFileName_F*LenSimFileName,cWSAFileName_F*LenWSAFileName
+    CHARACTER           :: cPPFileName_F*(LenPPFileName),cSimFileName_F*(LenSimFileName),cWSAFileName_F*(LenWSAFileName)
     LOGICAL             :: lRoutedStreams,lForInquiry
 
     !Set environment for parallel processing
@@ -206,7 +206,7 @@ CONTAINS
 
     !Local variables
     INTEGER             :: indx,iNewID
-    CHARACTER           :: cPPFileName_F*LenPPFileName,cSimFileName_F*LenSimFileName
+    CHARACTER           :: cPPFileName_F*(LenPPFileName),cSimFileName_F*(LenSimFileName)
     LOGICAL             :: lRoutedStreams,lForInquiry
 
     !Set environment for parallel processing
@@ -542,7 +542,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
     
     !Local variables
-    CHARACTER :: cDemandDate_F*iLenDate
+    CHARACTER :: cDemandDate_F*(iLenDate)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -575,7 +575,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)         :: iStat
     
     !Local variables
-    CHARACTER :: cCurrentDateAndTime_F*f_iTimeStampLength
+    CHARACTER :: cCurrentDateAndTime_F*(f_iTimeStampLength)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -641,7 +641,7 @@ CONTAINS
     
     !Local variables
     TYPE(TimeStepType) :: TimeStep
-    CHARACTER          :: cDateAndTime*f_iTimeStampLength,cDataDatesAndTimes_F*iLenDates,cInterval_F*iLenInterval
+    CHARACTER          :: cDateAndTime*(f_iTimeStampLength),cDataDatesAndTimes_F*(iLenDates),cInterval_F*(iLenInterval)
     INTEGER            :: indx,nTime
     
     !Make sure we have an active model
@@ -698,7 +698,7 @@ CONTAINS
     INTEGER                      :: indx,iDim,iCount,nTime
     CHARACTER(LEN=6),ALLOCATABLE :: cOutputIntervals_Local(:)
     TYPE(TimeStepType)           :: TimeStep
-    CHARACTER                    :: cOutputIntervals_F*iLenOutputIntervals
+    CHARACTER                    :: cOutputIntervals_F*(iLenOutputIntervals)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -776,7 +776,7 @@ CONTAINS
     CHARACTER(KIND=C_CHAR),INTENT(OUT) :: cBudgetList(iLenBudgetList)
     
     !Local variables
-    CHARACTER                      :: cBudgetList_F*iLenBudgetList
+    CHARACTER                      :: cBudgetList_F*(iLenBudgetList)
     INTEGER,ALLOCATABLE            :: iBudgetLocationTypeList_Local(:),iBudgetTypeList_Local(:),iBudgetCompList_Local(:)
     CHARACTER(LEN=100),ALLOCATABLE :: cBudgetList_Local(:)
     CHARACTER(LEN=500),ALLOCATABLE :: cFilesDummy(:)
@@ -851,7 +851,7 @@ CONTAINS
     
     !Local variables
     CHARACTER(LEN=200),ALLOCATABLE :: cColTitles_Local(:)
-    CHARACTER(LEN=iLenTitles)      :: cColTitles_F*iLenTitles,cUnitLT_F*iLenUnit,cUnitAR_F*iLenUnit,cUnitVL_F*iLenUnit
+    CHARACTER(LEN=iLenTitles)      :: cColTitles_F*(iLenTitles),cUnitLT_F*(iLenUnit),cUnitAR_F*(iLenUnit),cUnitVL_F*(iLenUnit)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -896,7 +896,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: indxMon,iSWShedBudType
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:),rSDFlows_Local(:,:)
     CHARACTER(LEN=50),ALLOCATABLE :: cFlowNames_Local(:)
     
@@ -954,7 +954,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: iSWShedBudType,indxYear
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     LOGICAL                       :: lForCalendarYear
     INTEGER,ALLOCATABLE           :: iWaterYears_Local(:)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:)
@@ -1018,7 +1018,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: iSWShedBudType,indxYear
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     LOGICAL                       :: lForCalendarYear
     INTEGER,ALLOCATABLE           :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:)
@@ -1084,7 +1084,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iDataTypes(iNCols),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cInterval_F*iLenInterval
+    CHARACTER :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cInterval_F*(iLenInterval)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -1124,7 +1124,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cInterval_F*iLenInterval
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cInterval_F*(iLenInterval)
     REAL(8),ALLOCATABLE :: rDates(:),rStorChange(:)
     
     !Make sure we have an active model
@@ -1170,7 +1170,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iWaterYears(iNTimes_In),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate)
     LOGICAL             :: lForCalendarYear
     INTEGER,ALLOCATABLE :: iWaterYears_Local(:)
     REAL(8),ALLOCATABLE :: rStorChange(:)
@@ -1217,7 +1217,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iOutputYears(iNTimes_In),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate)
     LOGICAL             :: lForCalendarYear
     INTEGER,ALLOCATABLE :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE :: rStorChange(:)
@@ -1290,7 +1290,7 @@ CONTAINS
     CHARACTER(KIND=C_CHAR),INTENT(OUT) :: cZBudgetList(iLenZBudgetList)
     
     !Local variables
-    CHARACTER                      :: cZBudgetList_F*iLenZBudgetList
+    CHARACTER                      :: cZBudgetList_F*(iLenZBudgetList)
     INTEGER,ALLOCATABLE            :: iZBudgetTypeList_Local(:)
     CHARACTER(LEN=200),ALLOCATABLE :: cZBudgetList_Local(:)
     CHARACTER(LEN=500),ALLOCATABLE :: cFilesDummy(:)
@@ -1364,7 +1364,7 @@ CONTAINS
     
     !Local variables
     CHARACTER(LEN=200),ALLOCATABLE :: cColTitles_Local(:)
-    CHARACTER(LEN=iLenTitles)      :: cColTitles_F*iLenTitles,cUnitAR_F*iLenUnit,cUnitVL_F*iLenUnit
+    CHARACTER(LEN=iLenTitles)      :: cColTitles_F*(iLenTitles),cUnitAR_F*(iLenUnit),cUnitVL_F*(iLenUnit)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -1407,7 +1407,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: indxMon
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:),rSDFlows_Local(:,:)
     CHARACTER(LEN=50),ALLOCATABLE :: cFlowNames_Local(:)
     
@@ -1457,7 +1457,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: indxYear
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     LOGICAL                       :: lForCalendarYear 
     INTEGER,ALLOCATABLE           :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:)
@@ -1513,7 +1513,7 @@ CONTAINS
     
     !Local variables
     INTEGER                       :: indxYear
-    CHARACTER                     :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cFlowNames_F*iLenFlowNames
+    CHARACTER                     :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cFlowNames_F*(iLenFlowNames)
     LOGICAL                       :: lForCalendarYear 
     INTEGER,ALLOCATABLE           :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE           :: rFlows_Local(:,:)
@@ -1571,7 +1571,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iDataTypes(iNCols),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cInterval_F*iLenInterval
+    CHARACTER :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cInterval_F*(iLenInterval)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -1611,7 +1611,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cInterval_F*iLenInterval
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cInterval_F*(iLenInterval)
     REAL(8),ALLOCATABLE :: rDates(:),rStorChange(:)
     
     !Make sure we have an active model
@@ -1657,7 +1657,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iOutputYears(iNTimes_In),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate)
     LOGICAL             :: lForCalendarYear
     INTEGER,ALLOCATABLE :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE :: rStorChange(:)
@@ -1704,7 +1704,7 @@ CONTAINS
     INTEGER,INTENT(OUT)               :: iOutputYears(iNTimes_In),iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate)
     LOGICAL             :: lForCalendarYear
     INTEGER,ALLOCATABLE :: iOutputYears_Local(:)
     REAL(8),ALLOCATABLE :: rStorChange(:)
@@ -1754,7 +1754,7 @@ CONTAINS
     
     !Local variables
     CHARACTER(LEN=250) :: cLocalNamesList(iDimLocArray)
-    CHARACTER          :: cNamesList_F*iLenNamesList
+    CHARACTER          :: cNamesList_F*(iLenNamesList)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -1815,7 +1815,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
     
     !Local variables
-    CHARACTER :: cOutputBeginDateAndTime_F*iLenDateAndTime,cOutputEndDateAndTime_F*iLenDateAndTime
+    CHARACTER :: cOutputBeginDateAndTime_F*(iLenDateAndTime),cOutputEndDateAndTime_F*(iLenDateAndTime)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -2138,7 +2138,7 @@ CONTAINS
     
     !Local variables
     INTEGER,ALLOCATABLE            :: iHydLocTypeList_Local(:),iHydCompList_Local(:) 
-    CHARACTER                      :: cHydTypeList_F*iLenHydTypeList
+    CHARACTER                      :: cHydTypeList_F*(iLenHydTypeList)
     CHARACTER(LEN=100),ALLOCATABLE :: cHydTypeList_Local(:)
     CHARACTER(LEN=500),ALLOCATABLE :: cHydFileList_Local(:)
     
@@ -2256,7 +2256,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iDataUnitType,iNTimes_Out,iStat
     
     !Local variables
-    CHARACTER           :: cBeginDate_F*iLenDate,cEndDate_F*iLenDate,cInterval_F*iLenInterval
+    CHARACTER           :: cBeginDate_F*(iLenDate),cEndDate_F*(iLenDate),cInterval_F*(iLenInterval)
     REAL(8),ALLOCATABLE :: rDates_Local(:),rValues_Local(:) 
     
     !Make sure we have an active model
@@ -2520,7 +2520,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)         :: iStat    
     
     !Local variables
-    CHARACTER :: cName_F*iLen
+    CHARACTER :: cName_F*(iLen)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl
@@ -5186,7 +5186,7 @@ CONTAINS
     INTEGER(C_INT),INTENT(OUT)        :: iStat
   
     !Local variables
-    CHARACTER :: cInterval_F*iLen
+    CHARACTER :: cInterval_F*(iLen)
     
     !Make sure we have an active model
     TYPE(ModelType),POINTER :: pMdl

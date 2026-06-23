@@ -41,9 +41,9 @@ MODULE Class_AppBC
                                       MessageLoggerType             , &
                                       f_iFatal
   USE Package_Discretization  , ONLY: AppGridType                   , &
-                                      StratigraphyType              , &
-                                      ConvertID_To_Index            
-  USE Class_LayerBC                                                 
+                                      StratigraphyType
+  USE GeneralUtilities        , ONLY: ConvertID_To_Index
+  USE Class_LayerBC
   USE Class_TSBCDataFile      , ONLY: TSBCDataFileType              
   USE Package_Matrix          , ONLY: MatrixType
   IMPLICIT NONE

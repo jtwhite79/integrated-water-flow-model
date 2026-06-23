@@ -151,6 +151,12 @@ MODULE IOInterface_Local
     PROCEDURE,PASS :: CreateHDFGroup
     PROCEDURE,PASS :: CreateHDFDataSet
     PROCEDURE,PASS :: WriteHDFAttribute
+    ! NOTE (gfortran port): The HDF5-file and DSS-file readers are split into
+    ! their own generics (ReadHDFData / ReadDSSData) below. They lead with
+    ! CHARACTER + CLASS(*) arguments that are indistinguishable from the TS
+    ! readers under the Fortran standard's generic-resolution rules, which
+    ! gfortran enforces (Intel ifx does not). Keeping them in ReadData makes
+    ! the generic non-conforming and rejected by gfortran.
     GENERIC        :: ReadData           => ReadScalarData                                                 , &
                                             ReadIntegerArray                                               , &
                                             ReadRealArray                                                  , &
@@ -160,9 +166,9 @@ MODULE IOInterface_Local
                                             ReadTSScalarData                                               , &
                                             ReadTSArrayData                                                , &
                                             ReadTSMatrixData                                               , &
-                                            ReadTSData_ForTimeRange                                        , &
-                                            ReadEntireTSD_FromDssFile                                      , &
-                                            ReadAttribute_FromHDFFile                                      , &
+                                            ReadTSData_ForTimeRange
+    GENERIC        :: ReadDSSData        => ReadEntireTSD_FromDssFile
+    GENERIC        :: ReadHDFData        => ReadAttribute_FromHDFFile                                      , &
                                             Read1DArrayDataSet_FromHDFFile                                 , &
                                             Read2DArrayDataSet_FromHDFFile                                 , &
                                             ReadData_OneColumn_Or_OneLocation_FromHDFFile                  , &
@@ -1882,10 +1888,10 @@ CONTAINS
 
     !Local variables
     CHARACTER(LEN=ModNameLen+16),PARAMETER :: ThisProcedure             = ModName // 'IdentifyFileType'
-    CHARACTER(LEN=3),PARAMETER             :: cAsciiFileExtensions(7)   = ['TXT','DAT','IN ','IN1','IN2','OUT','BUD']
-    CHARACTER(LEN=3),PARAMETER             :: cFortBinFileExtensions(1) = ['BIN']
-    CHARACTER(LEN=3),PARAMETER             :: cDSSFileExtensions(1)     = ['DSS']
-    CHARACTER(LEN=4),PARAMETER             :: cHDF5FileExtensions(4)    = ['HDF ','H5  ','HE5 ','HDF5']
+    CHARACTER(LEN=3),PARAMETER             :: cAsciiFileExtensions(7)   = [CHARACTER(LEN=3) :: 'TXT','DAT','IN ','IN1','IN2','OUT','BUD']
+    CHARACTER(LEN=3),PARAMETER             :: cFortBinFileExtensions(1) = [CHARACTER(LEN=3) :: 'BIN']
+    CHARACTER(LEN=3),PARAMETER             :: cDSSFileExtensions(1)     = [CHARACTER(LEN=3) :: 'DSS']
+    CHARACTER(LEN=4),PARAMETER             :: cHDF5FileExtensions(4)    = [CHARACTER(LEN=4) :: 'HDF ','H5  ','HE5 ','HDF5']
     CHARACTER(:),ALLOCATABLE               :: cFileNameExtension
     
     !Retrieve the file name extension
