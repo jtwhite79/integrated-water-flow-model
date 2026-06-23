@@ -95,6 +95,14 @@ jobs:
         with:
           compiler: intel
 
+      # The runner's CMake (4.x) fails to identify ifx and errors during Fortran
+      # ABI detection (missing CMAKE_Fortran_PREPROCESS_SOURCE). Pin a known-good
+      # CMake with solid Intel Fortran support.
+      - name: Set up CMake 3.31
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.31.6'
+
       - name: Install Ninja
         shell: cmd
         run: pip install ninja
