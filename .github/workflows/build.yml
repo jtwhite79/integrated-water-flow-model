@@ -90,6 +90,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # ifx needs the MSVC backend (Windows SDK headers/libs, link.exe). Intel's
+      # setvars (run by setup-fortran) does NOT set this up, which makes CMake's
+      # Fortran compiler-ID test fail ("identification is unknown"). Activate the
+      # MSVC dev environment so ifx can compile/link.
+      - name: Set up MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Set up Intel oneAPI (ifx + icx)
         uses: fortran-lang/setup-fortran@v1
         with:
